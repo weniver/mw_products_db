@@ -80,3 +80,44 @@ p {
   color: #fff;
   text-decoration: none;
 }
+
+/* footer */
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: inherit;
+  height: 35px;
+  background-color: #fff;
+}
+
+
+
+
+footer {
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 1px solid #eaeaea;
+  color: #777;
+}
+
+footer a {
+  color: #333;
+}
+
+footer a:hover {
+  color: #F1BFB8;
+}
+
+footer small {
+  float: left;
+}
+
+footer ul {
+  float: right;
+  list-style: none;
+}
+
+footer ul li {
+  float: left;
+  margin-left: 15px;
+}
