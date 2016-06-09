@@ -1,1 +1,22 @@
-<h1>Sign Up Form</h1>
+<% provide(:title, 'Sign up') %>
+<h1>Regístrate:</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@user) do |f| %>
+      <%= f.label :nombre %>
+      <%= f.text_field :name %>
+
+      <%= f.label :correo_electrónico %>
+      <%= f.email_field :email %>
+
+      <%= f.label :contraseña %>
+      <%= f.password_field :password %>
+
+      <%= f.label :confirmación_de_contraseña %>
+      <%= f.password_field :password_confirmation %>
+
+      <%= f.submit "Crear Cuenta", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
