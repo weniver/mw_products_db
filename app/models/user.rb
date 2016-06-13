@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   validates :name,  presence: true,
                     length: { maximum: 50 }
   has_secure_password
-  validates :password, length: { minimum: 8 }
+  validates :password, length: { minimum: 8 }, allow_blank: true
 
   # Returns the hash digest of the given string.
   def User.digest(string)
