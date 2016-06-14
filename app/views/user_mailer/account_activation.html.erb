@@ -1,0 +1,9 @@
+
+<p>Hola <%= @user.name %>,</p>
+
+<p>
+!Bienvenido/a! Para activar tu cuenta da click en el link:
+</p>
+
+<%= link_to "Activa tu Cuenta.", edit_account_activation_url(@user.activation_token,
+                                                    email: @user.email) %>
