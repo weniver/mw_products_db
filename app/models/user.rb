@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
   has_and_belongs_to_many :brands
   accepts_nested_attributes_for :brands
-
   attr_accessor :remember_token, :activation_token, :reset_token
+  
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   before_save :downcase_mail
   before_create :create_activation_digest

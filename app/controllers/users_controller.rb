@@ -3,9 +3,22 @@ class UsersController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user, only: :destroy
 
+  #Initialize User and brand for the nested form.
   def new
     @user = User.new
     @user.brands.build
+  end
+
+  def create
+    @user = User.new(user_params)
+    #saves both the user and the brand name
+    if @user.save
+      @user.send_activation_email
+      flash[:info] = "Por favor checa tu email para activar tu cuenta."
+      redirect_to root_url
+    else
+      render 'new'
+    end
   end
 
   def index
@@ -20,17 +33,6 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-  end
-
-  def create
-    @user = User.new(user_params)
-    if @user.save
-      @user.send_activation_email
-      flash[:info] = "Por favor checa tu email para activar tu cuenta."
-      redirect_to root_url
-    else
-      render 'new'
-    end
   end
 
   def edit
