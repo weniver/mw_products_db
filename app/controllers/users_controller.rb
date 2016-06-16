@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @user.brands.build
   end
 
   def index
@@ -50,7 +51,8 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name,
                                    :email,
                                    :password,
-                                   :password_confirmation)
+                                   :password_confirmation,
+                                    brands_attributes: [:id, :name])
     end
 
     # Before filters

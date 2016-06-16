@@ -18,6 +18,11 @@
       <%= f.label :password_confirmation, "Confirmación de Contraseña:" %>
       <%= f.password_field :password_confirmation, class: 'form-control' %>
 
+      <%= f.fields_for :brands do |ff| %>
+        <%= ff.label :name, "Nombre de tu Marca:" %>
+        <%= ff.text_field :name, class: 'form-control' %>
+      <% end %>
+
       <%= f.submit "Crear Cuenta", class: "btn btn-primary" %>
     <% end %>
   </div>
