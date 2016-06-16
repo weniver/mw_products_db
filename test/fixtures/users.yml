@@ -5,6 +5,7 @@ diego:
   admin: true
   activated: true
   activated_at: <%= Time.zone.now %>
+  brands: papawolf
 
 ivonne:
   name: Ivonne
@@ -12,6 +13,7 @@ ivonne:
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
+  brands: mamawolf
 
 michael:
   name: Michael Example
