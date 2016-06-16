@@ -12,7 +12,11 @@ module ApplicationHelper
 
   #Get the brand name if there is a user
   def get_brand_name
-    brand_name = current_user.nil? ? "Tu marca aquí"
-                                   : current_user.brands.first.name
+    current_user.nil? ? "Iniciar Sesión": current_user.brands.first.name
+  end
+  
+  #Gets login_path if not logged in
+  def logo_link_path
+    current_user.nil? ? login_path : root_path
   end
 end

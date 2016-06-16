@@ -6,7 +6,8 @@ class UserTest < ActiveSupport::TestCase
     @user = User.new(name: "Juan Examples",
                      email: "juan@example.com",
                      password: "foobarbaz",
-                     password_confirmation: "foobarbaz")
+                     password_confirmation: "foobarbaz",
+                     brands_attributes: [name: 'FOOBAR'])
   end
 
   test 'should be valid' do
@@ -30,6 +31,11 @@ class UserTest < ActiveSupport::TestCase
 
   test 'email should not be too long' do
     @user.name = 'a'*256
+    assert_not @user.valid?
+  end
+
+  test 'brand name should not be blank' do
+    @user.brands.first.name = ''
     assert_not @user.valid?
   end
 
