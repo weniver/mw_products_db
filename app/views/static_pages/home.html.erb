@@ -3,9 +3,6 @@
   <% if !current_user.nil? && current_user.admin? %>
     <%= link_to "Sign Up", signup_path, class: "btn btn-lg btn-primary", id: "btn-home"%>
   <% end %>
-  <% unless logged_in? %>
-    <%= link_to "Iniciar Sesión", login_path, class: "btn btn-lg btn-primary", id: "btn-home"%>
-  <% end %>
 
   <p>
     Necesitas iniciar sesión para utilizar esta página.
