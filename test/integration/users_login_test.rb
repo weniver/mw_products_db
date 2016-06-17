@@ -30,7 +30,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_url
     delete logout_path
     follow_redirect!
-    assert_select "a[href=?]", login_path, count: 1
+    assert_select "a[href=?]", login_path, count: 2
   end
 
   test "login with remembering" do
