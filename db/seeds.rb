@@ -30,15 +30,22 @@ products = Product.take(10)
                                                        price: price) }
 end
 
-cagegories = Category.take(29)
+categories = Category.take(29)
 20.times do
-  product_code =
-  ink_color =
-  fabric_color =
-  print_style =
-  price_modifier =
-  sold =
-  fabric =
+  product_code = SecureRandom.base64
+  ink_color = Faker::Color.color_name
+  fabric_color = Faker::Color.color_name
+  print_style = Faker::Team.creature
+  price_modifier = rand(1.0..2.0)
+  sold = Faker::Boolean.boolean
+  fabric = ['wool','cotton','silk'].sample
+  categories.each { |category| category.units.create!(product_code: product_code,
+                                                      ink_color: ink_color,
+                                                      fabric_color: fabric_color,
+                                                      print_style: print_style,
+                                                      price_modifier: price_modifier,
+                                                      sold: sold,
+                                                      fabric: fabric) }
 
 end
 
