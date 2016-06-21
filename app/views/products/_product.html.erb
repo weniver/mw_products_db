@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+  <div class="panel-heading" role="tab" id="heading<%= product.id %>">
+    <h4 class="panel-title name">
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%= product.id %>" aria-expanded="true" aria-controls="collapse<%= product.id %>">
+        <span> <%= product.categories.any? ? product.name : (link_to product.name, "#") %></span>
+
+      </a>
+    </h4>
+  </div>
+  <% if product.categories.any? %>
+  <div id="collapse<%= product.id %>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading<%= product.id %>">
+    <ol class="categories">
+      <% product.categories.each do |category| %>
+      <li id="categories<%= category.id %>">
+        <span class="name category"><%= link_to category.name, "#" %></span>
+      </li>
+      <% end %>
+    </ol>
+    </div>
+  <% end %>
+</div>

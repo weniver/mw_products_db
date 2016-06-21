@@ -23,6 +23,10 @@ module SessionsHelper
     end
   end
 
+  def current_brand
+    @current_brand ||= current_user.brands.first
+  end
+
   #Return TRUE if a user is logged_in
   def logged_in?
     !current_user.nil?

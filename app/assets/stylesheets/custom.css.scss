@@ -228,3 +228,25 @@ input {
     border-bottom: 1px solid $gray-lighter;
   }
 }
+
+/* products */
+
+.products {
+  list-style: none;
+  padding: 0;
+  li {
+    border-top: 1px solid #e8e8e8;
+  }
+}
+
+  .name {
+    margin: auto;
+    font-size: 1.7em;
+    color: #F1BFB8;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    padding-top: 9px;
+    font-weight: bold;
+    width: auto;
+  }
