@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  product_code: MyString
+  ink_color: MyString
+  fabric_color: MyString
+  print: MyString
+  price_modifier: 9.99
+  sold: false
+  fabric: MyString
+  category_id: 
+  store_id: 
+  remission_id: 
+
+two:
+  product_code: MyString
+  ink_color: MyString
+  fabric_color: MyString
+  print: MyString
+  price_modifier: 9.99
+  sold: false
+  fabric: MyString
+  category_id: 
+  store_id: 
+  remission_id: 
