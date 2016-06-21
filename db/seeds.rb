@@ -17,7 +17,7 @@ User.create!(name: "Ivonne",
             brands_attributes: [name: 'Mama Wolf'])
 
 brand = Brand.second
-15.times do
+65.times do
   name = Faker::Commerce.product_name
   brand.products.create!(name: name)
 end
@@ -28,6 +28,18 @@ products = Product.take(10)
   price = Faker::Commerce.price
   products.each { |product| product.categories.create!(name:  name,
                                                        price: price) }
+end
+
+cagegories = Category.take(29)
+20.times do
+  product_code =
+  ink_color =
+  fabric_color =
+  print_style =
+  price_modifier =
+  sold =
+  fabric =
+
 end
 
 50.times do |n|
