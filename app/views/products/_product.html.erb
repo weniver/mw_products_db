@@ -2,8 +2,8 @@
   <div class="panel-heading" role="tab" id="heading<%= product.id %>">
     <h4 class="panel-title name">
       <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%= product.id %>" aria-expanded="true" aria-controls="collapse<%= product.id %>">
-        <span> <%= product.categories.any? ? product.name : (link_to product.name, "#") %></span>
-
+        <!-- TODO cambiar para que categoria name == product name -->
+        <span> <%= category_is_product_name(product.categories.first) ? (link_to product.name, category_path(product.categories.first)) : product.name %></span>
       </a>
     </h4>
   </div>
@@ -12,7 +12,7 @@
     <ol class="categories">
       <% product.categories.each do |category| %>
       <li id="categories<%= category.id %>">
-        <span class="name category"><%= link_to category.name, "#" %></span>
+        <span class="name category"><%= link_to category.name, category_path(category) %></span>
       </li>
       <% end %>
     </ol>

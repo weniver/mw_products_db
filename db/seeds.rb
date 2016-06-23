@@ -30,6 +30,16 @@ products = Product.take(10)
                                                        price: price) }
 end
 
+products = Product.all
+products.each do |product|
+  unless product.categories.any?
+    name = product.name
+    price = Faker::Commerce.price
+    product.categories.create!(name:  name,
+                               price: price)
+  end
+end
+
 categories = Category.take(29)
 20.times do
   product_code = SecureRandom.base64
