@@ -1,6 +1,6 @@
 class Category < ActiveRecord::Base
   belongs_to :product
-  has_many :units
+  has_many :units, dependent: :destroy
 
   validates :price,    presence: true
   validates :product_id, presence: true
