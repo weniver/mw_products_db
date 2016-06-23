@@ -23,7 +23,7 @@
       <td><%= unit.fabric %></td>
       <td><%= unit.fabric_color %></td>
       <td><%= unit.sold %></td>
-      <td><%= "#{unit.category.price}(#{unit.price_modifier})" %></td>
+      <td><%= "#{unit.category.price}(#{unit.price_modifier.round(2)})" %></td>
     </tr>
   <% end %>
   </tbody>
