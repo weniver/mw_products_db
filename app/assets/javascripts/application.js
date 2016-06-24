@@ -11,7 +11,12 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 //= require bootstrap
 //= require turbolinks
+//= require dataTables/jquery.dataTables
 //= require_tree .
+
+jQuery ->
+  $('#products').dataTable()
