@@ -1,0 +1,15 @@
+<% provide(:title, 'Productos') %>
+<div id="accordion" role="tablist" aria-multiselectable="true">
+  <% if @products.any? %>
+    <ol class="products">
+      <%= render @products %>
+    </ol>
+    <%= will_paginate %>
+  <% else %>
+    <h1>Tu marca todavía no cuenta con productos que mostrar.</h1>
+  <% end %>
+</div>
+
+<script>
+  $('.collapse').collapse()
+</script>

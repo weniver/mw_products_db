@@ -1,0 +1,30 @@
+<h1><%= @category.name %></h1>
+
+<table id="products" class="table table-striped table-bordered" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Codigo</th>
+      <th>Estampado</th>
+      <th>Color de la Tinta</th>
+      <th>Tipo de Tela</th>
+      <th>Color de la Tela</th>
+      <th>¿Vendido?</th>
+      <th>Precio(Modificador)</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @units.each do |unit| %>
+    <tr>
+      <td><%= unit.id %></td>
+      <td><%= unit.product_code %></td>
+      <td><%= unit.print_style %></td>
+      <td><%= unit.ink_color %></td>
+      <td><%= unit.fabric %></td>
+      <td><%= unit.fabric_color %></td>
+      <td><%= unit.sold %></td>
+      <td><%= "#{unit.category.price}(#{unit.price_modifier.round(2)})" %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

@@ -4,8 +4,14 @@
     <%= link_to "Sign Up", signup_path, class: "btn btn-lg btn-primary", id: "btn-home"%>
   <% end %>
 
-  <p>
-    Necesitas iniciar sesión para utilizar esta página.
-  </p>
+  <% if logged_in? %>
+    <p>
+      <%= say_hello %>
+    </p>
+  <% else %>
+    <p>
+      Necesitas iniciar sesión para utilizar esta página.
+    </p>
+  <% end %>
 
 </div>

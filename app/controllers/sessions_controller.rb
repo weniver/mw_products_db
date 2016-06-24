@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
       if user.activated?
         log_in user
         params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-        redirect_back_or user
+        redirect_back_or root_url
       else
         message = "Tu cuenta no se encuentra activa. Checa tu correo electrónico y da click en el link que te enviamos."
         flash[:warning] = message
