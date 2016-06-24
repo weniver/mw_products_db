@@ -27,7 +27,7 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
 
   test "index as non-admin" do
     log_in_as(@user)
-    get users_path
+    redirect users_url
     assert_select 'a', text: 'delete', count: 0
   end
 end
