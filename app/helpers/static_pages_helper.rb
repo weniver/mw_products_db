@@ -3,7 +3,7 @@ module StaticPagesHelper
   @@phrases = ["La Fiona y el Ulicho te saludan.",
              "Pompo!",
              "I loooooooove you!",
-             "Fiona, 50% perro,50% puerco, 100% actitud.",
+             "Fiona, 50% perro, 50% puerco, 100% actitud.",
              "Being a punk is also an illness!",
              "I'm a shimmering beacon of lust.",
              "My log does not judge.",
