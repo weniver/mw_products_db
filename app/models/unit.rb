@@ -7,4 +7,18 @@ class Unit < ActiveRecord::Base
   validates :fabric_color, presence: true
   validates :print_style, presence: true
   validates :fabric, presence: true
+
+  def sold_yes_or_no
+    return self.sold ? "Sí" : "No"
+  end
+
+  def where_is_it
+    id = self.store_id
+    return id.nil? ? "Bodega" : "#{Store.find_by(id: id)}"
+  end
+
+  def sold_price
+    income = self.price_modifier * self.category.price
+    return self.sold ? "#{income}" : "n/a"
+  end
 end

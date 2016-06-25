@@ -14,7 +14,7 @@ module ApplicationHelper
   def get_brand_name
     current_user.nil? ? "Iniciar Sesión": current_user.brands.first.name
   end
-  
+
   #Gets login_path if not logged in
   def logo_link_path
     current_user.nil? ? login_path : root_path
