@@ -52,7 +52,11 @@ module SessionsHelper
 
   # Redirects to stored location (or to the default).
   def redirect_back_or(default)
-    redirect_to(session[:forwarding_url] || default)
+    if session[:forwarding_url] == login_path
+      redirect_to(root_url)
+    else
+      redirect_to(session[:forwarding_url] || default)
+    end
     session.delete(:forwarding_url)
   end
 
