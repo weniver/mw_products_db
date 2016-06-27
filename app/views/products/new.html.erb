@@ -1,0 +1,23 @@
+<% provide(:title, 'Producto Nuevo') %>
+<h1>Regístrate:</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@product) do |f| %>
+      <%= render 'shared/error_messages' %>
+
+      <%= f.label :name, "Nombre:" %>
+      <%= f.text_field :name, class: 'form-control' %>
+
+      <%= f.fields_for :categories do |ff| %>
+        <%= ff.label :name, "Nombre de la Categoria" %>
+        <%= ff.text_field :name, class: 'form-control' %>
+
+        <%= ff.label :price, "Precio Base" %>
+        <%= ff.text_field :price, class: 'form-control' %>
+      <% end %>
+
+      <%= f.submit "Crear Cuenta", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
