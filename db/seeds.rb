@@ -40,7 +40,7 @@ products.each do |product|
   end
 end
 
-categories = Category.take(29)
+categories = Category.all
 20.times do
   product_code = SecureRandom.base64
   ink_color = Faker::Color.color_name
