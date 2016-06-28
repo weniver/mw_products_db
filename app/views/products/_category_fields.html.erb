@@ -1,0 +1,8 @@
+<%= f.fields_for :categories do |builder| %>
+  <%= builder.label :name, "Nombre de la Categoria:" %>
+  <%= builder.text_field :name, class: 'form-control' %>
+
+  <%= builder.label :price, "Precio Base:" %>
+  <%= builder.text_field :price, class: 'form-control' %>
+  <hr>
+<% end %>
