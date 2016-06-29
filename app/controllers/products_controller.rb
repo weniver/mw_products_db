@@ -4,15 +4,14 @@ class ProductsController < ApplicationController
   end
 
   def new
-    @product = Product.new
+    @product = current_brand.products.new
     @product.categories.build
   end
 
   def create
     @product = current_brand.products.build(product_params)
     #saves both the product and the categories
-    if @user.save
-      @user.send_activation_email
+    if @product.save
       flash[:info] = "Por favor checa tu email para activar tu cuenta."
       redirect_to root_url
     else
@@ -46,10 +45,7 @@ class ProductsController < ApplicationController
 
     def product_params
       params.require(:product).permit(:name,
-                                      :email,
-                                      :password,
-                                      :password_confirmation,
-                                       brands_attributes: [:id, :name])
+                                       categories_attributes: [:name, :price])
     end
 
     # Before filters
