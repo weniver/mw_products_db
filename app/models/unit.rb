@@ -19,6 +19,6 @@ class Unit < ActiveRecord::Base
 
   def sold_price
     income = self.price_modifier * self.category.price
-    return self.sold ? "#{income}" : "n/a"
+    return self.sold ? ": #{income.round(2)}" : ""
   end
 end

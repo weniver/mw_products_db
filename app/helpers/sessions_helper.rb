@@ -50,6 +50,11 @@ module SessionsHelper
     user == current_user
   end
 
+  #Returns true if the given products brand is the current brand.
+  def correct_brand_for_product?(product)
+    product.brand == current_brand
+  end
+
   # Redirects to stored location (or to the default).
   def redirect_back_or(default)
     if session[:forwarding_url] == login_path

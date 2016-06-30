@@ -1,9 +1,7 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+papas:
+  name: "Lobos"
+  brand: papawolf
 
-one:
-  name: MyString
-  brand_id: 
-
-two:
-  name: MyString
-  brand_id: 
+mamas:
+    name: "Lobas"
+    brand: mamawolf

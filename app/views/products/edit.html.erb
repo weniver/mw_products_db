@@ -1,0 +1,29 @@
+<% provide(:title, 'Producto Nuevo') %>
+<h1>Modificar Producto y sus Categorías</h1>
+<hr>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@product) do |f| %>
+      <%= render 'shared/error_messages_products' %>
+
+      <%= f.label :name, "Producto:" %>
+      <%= f.text_field :name, class: 'form-control' %>
+
+      <hr>
+      <%= f.fields_for :categories do |builder| %>
+        <fieldset>
+          <%= builder.label :name, "Categoria:" %>
+          <%= builder.text_field :name, class: 'form-control' %>
+
+          <%= builder.label :price, "Precio Base:" %>
+          <%= builder.text_field :price, class: 'form-control' %>
+        </fieldset>
+      <% end %>
+      <%= link_to_add_fields "Agregar Categoria", f, :categories %>
+      <br>
+      <br>
+
+      <%= f.submit "Salvar Producto", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
