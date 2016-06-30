@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  before_action :correct_brand, only: [:edit, :update]
+
   def index
     @products = current_brand.products.paginate(page: params[:page])
   end
@@ -11,53 +13,44 @@ class ProductsController < ApplicationController
   def create
     @product = current_brand.products.build(product_params)
     #saves both the product and the categories
-    if @product.save
-      flash[:info] = "Por favor checa tu email para activar tu cuenta."
-      redirect_to root_url
+    if @product.categories.empty?
+      @product.create_category_from_name
+      if @product.save
+        flash[:info] = "Cuando generas un producto sin categorias, se genera una categoria automaticamente con el mismo nombre del producto. Por favor agrega un precio base o si lo deseas cambia el nombre o agrega mas categorias."
+        redirect_to edit_product_url(@product)
+      else
+        render 'new'
+      end
+    elsif @product.save
+      @product.save
+      flash[:info] = "Tu producto se creo exitosamente."
+      redirect_to products_url
     else
       render 'new'
     end
   end
-  #
-  # def destroy
-  #   User.find(params[:id]).destroy
-  #   flash[:success] = "User deleted"
-  #   redirect_to users_url
-  # end
-  #
-  # def show
-  #   @user = User.find(params[:id])
-  # end
-  #
-  # def edit
-  # end
-  #
-  # def update
-  #   if @user.update_attributes(user_params)
-  #     flash[:success] = "Tu perfil ha sido actualizado"
-  #     redirect_to @user
-  #   else
-  #     render 'edit'
-  #   end
-  # end
 
+  def edit
+  end
+
+  def update
+    if @product.update_attributes(product_params)
+      flash[:success] = "Tu producto se ha modificado."
+      redirect_to products_url
+    else
+      render 'edit'
+    end
+  end
   private
 
     def product_params
       params.require(:product).permit(:name,
-                                       categories_attributes: [:name, :price])
+                                       categories_attributes: [:id, :name, :price])
     end
 
     # Before filters
-
-    # Confirms the correct user.
-    def correct_user
-      @user = User.find(params[:id])
-      redirect_to(root_url) unless current_user?(@user)
-    end
-
-    # Confirms the correct user.
-    def admin_user
-      redirect_to(root_url) unless current_user.admin?
+    def correct_brand
+      @product = current_brand.products.find(params[:id])
+      redirect_to(root_url) unless correct_brand_for_product?(@product)
     end
 end

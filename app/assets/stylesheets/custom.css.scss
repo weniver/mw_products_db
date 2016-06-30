@@ -242,13 +242,17 @@ input {
   .name {
     margin: auto;
     font-size: 1.7em;
-    color: #F1BFB8;
+    color: #575757;
     text-align: center;
     text-transform: uppercase;
     letter-spacing: -1px;
-    padding-top: 9px;
+    padding-top: 0px;
     font-weight: bold;
     width: auto;
+    a:hover{
+      text-decoration: none;
+      color: #e5a3ad
+    }
   }
 
 // dropdown-submenu
@@ -299,3 +303,20 @@ input {
       -moz-border-radius: 6px 0 6px 6px;
       border-radius: 6px 0 6px 6px;
   }
+
+// Index
+.category_index_link {
+  list-style-type: none;
+  text-decoration: none;
+  a:hover{
+    text-decoration: none;
+  }
+}
+#product_name_show {
+  color: #303030;
+}
+#category_name_show {
+  font-size: 0.7em;
+  color: #4F4F4F;
+  text-transform: lowercase;
+}

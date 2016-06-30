@@ -2,20 +2,18 @@
   <div class="panel-heading" role="tab" id="heading<%= product.id %>">
     <h4 class="panel-title name">
       <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%= product.id %>" aria-expanded="true" aria-controls="collapse<%= product.id %>">
-        <!-- TODO cambiar para que categoria name == product name -->
-        <span> <%= category_is_product_name(product.categories.first) ? (link_to product.name, category_path(product.categories.first)) : product.name %></span>
+        <span> <%= product.name %></span>
       </a>
     </h4>
   </div>
-  <% if product.categories.any? %>
   <div id="collapse<%= product.id %>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading<%= product.id %>">
-    <ol class="categories">
+    <ol class="categories category_index_link">
       <% product.categories.each do |category| %>
       <li id="categories<%= category.id %>">
         <span class="name category"><%= link_to category.name, category_path(category) %></span>
       </li>
       <% end %>
+      <li class="product_index_edit_link"><%= link_to "Editar Producto/Categorias", edit_product_url(product) %></li>
     </ol>
     </div>
-  <% end %>
 </div>
