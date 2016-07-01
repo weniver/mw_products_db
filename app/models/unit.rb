@@ -8,6 +8,8 @@ class Unit < ActiveRecord::Base
   validates :print_style, presence: true
   validates :fabric, presence: true
 
+  attr_accessor :product_id, :category_id, :quantity
+
   def sold_yes_or_no
     return self.sold ? "Sí" : "No"
   end

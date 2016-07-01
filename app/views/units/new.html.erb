@@ -1,0 +1,38 @@
+<% provide(:title, 'Sign up') %>
+<h1>Regístrate:</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@unit) do |f| %>
+
+    <%= f.label :quantity, "Cantidad:" %>
+    <%= f.number_field :quantity, class: 'form-control' %>
+    <hr>
+
+  <div class="field">
+    <%= f.label :product_id, "Producto" %> <br/>
+    <%= f.collection_select :product_id, @products.order(:name), :id, :name, include_blank: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :category_id, "Categoria" %> <br/>
+    <%= f.grouped_collection_select :category_id, Product.order(:name), :categories, :name, :id, :name, include_blank: true %>
+  </div>
+  <hr>
+
+    <%= f.label :print_style, "Estampado:" %>
+    <%= f.text_field :print_style, class: 'form-control' %>
+
+    <%= f.label :ink_color, "Color de la Tinta:" %>
+    <%= f.text_field :ink_color, class: 'form-control' %>
+  <hr>
+
+    <%= f.label :fabric, "Tela:" %>
+    <%= f.text_field :fabric, class: 'form-control' %>
+
+    <%= f.label :fabric_color, "Color:" %>
+    <%= f.text_field :fabric_color, class: 'form-control' %>
+  <hr>
+    <% end %>
+  </div>
+</div>
