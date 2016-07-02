@@ -2,11 +2,11 @@ class Unit < ActiveRecord::Base
   belongs_to :category, dependent: :destroy
   belongs_to :store
   belongs_to :remission
+  belongs_to :fabric
 
   validates :ink_color, presence: true
-  validates :fabric_color, presence: true
+  validates :fabric_id, presence: true
   validates :print_style, presence: true
-  validates :fabric, presence: true
 
   attr_accessor :product_id, :category_id, :quantity
 

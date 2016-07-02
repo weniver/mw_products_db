@@ -11,12 +11,12 @@
 
   <div class="field">
     <%= f.label :product_id, "Producto" %> <br/>
-    <%= f.collection_select :product_id, @products.order(:name), :id, :name, include_blank: true %>
+    <%= f.collection_select :product_id, @products.order(:name), :id, :name, include_blank: true, prompt: "Selecciona un producto" %>
   </div>
 
   <div class="field">
     <%= f.label :category_id, "Categoria" %> <br/>
-    <%= f.grouped_collection_select :category_id, Product.order(:name), :categories, :name, :id, :name, include_blank: true %>
+    <%= f.grouped_collection_select :category_id, Product.order(:name), :categories, :name, :id, :name, include_blank: true, prompt: "Selecciona una categoria" %>
   </div>
   <hr>
 
@@ -27,11 +27,8 @@
     <%= f.text_field :ink_color, class: 'form-control' %>
   <hr>
 
-    <%= f.label :fabric, "Tela:" %>
-    <%= f.text_field :fabric, class: 'form-control' %>
-
-    <%= f.label :fabric_color, "Color:" %>
-    <%= f.text_field :fabric_color, class: 'form-control' %>
+    <%= f.label :fabric_id, "Tela:" %>
+    <%= f.collection_select(:fabric_id, Fabric.all, :id, :material_and_color, prompt: "Selecciona una tela") %>
   <hr>
     <% end %>
   </div>

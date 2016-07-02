@@ -40,22 +40,27 @@ products.each do |product|
   end
 end
 
+5.times do
+  material = ['Algodón', 'Lino', 'Seda'].sample
+  color = Faker::Color.color_name
+  Fabric.create!(material: material,
+                 color: color)
+end
+
 categories = Category.all
 20.times do
   product_code = SecureRandom.base64
   ink_color = Faker::Color.color_name
-  fabric_color = Faker::Color.color_name
   print_style = Faker::Team.creature
+  fabric_id = rand(1..5)
   price_modifier = rand(1.0..2.0)
   sold = Faker::Boolean.boolean
-  fabric = ['wool','cotton','silk'].sample
   categories.each { |category| category.units.create!(product_code: product_code,
                                                       ink_color: ink_color,
-                                                      fabric_color: fabric_color,
                                                       print_style: print_style,
                                                       price_modifier: price_modifier,
                                                       sold: sold,
-                                                      fabric: fabric) }
+                                                      fabric_id: fabric_id) }
 
 end
 

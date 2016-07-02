@@ -7,7 +7,7 @@
       <th>Producto</th>
       <th>Categoria</th>
       <th>Estampado: color</th>
-      <th>Tela: Color</th>
+      <th>Tela</th>
       <th>¿Vendido?</th>
       <th>Ubicación</th>
     </tr>
@@ -18,7 +18,7 @@
       <td><%= unit.category.product.name %></td>
       <td><%= unit.category.name %></td>
       <td><%= unit.print_style %>: <%= unit.ink_color %></td>
-      <td><%= unit.fabric %>: <%= unit.fabric_color %></td>
+      <td><%= unit.fabric.material.capitalize %>: <%= unit.fabric.color %></td>
       <td><%= unit.sold_yes_or_no %><%= unit.sold_price %></td>
       <td><%= unit.where_is_it %></td>
     </tr>
