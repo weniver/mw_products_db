@@ -3,6 +3,11 @@ class Unit < ActiveRecord::Base
   belongs_to :store
   belongs_to :remission
   belongs_to :fabric
+  belongs_to :color
+  belongs_to :pattern
+
+  accepts_nested_attributes_for :colors
+  validates_presence_of :colors
 
   validates :ink_color, presence: true
   validates :fabric_id, presence: true

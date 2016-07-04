@@ -47,6 +47,12 @@ end
                  color: color)
 end
 
+estampados = ['Twitcher','Twitcher Mini','Casita Nochtototl','Wolfi','Plumifero','Saeta','Espiguilla','Primavera','Flower','Señor Gatucho','Wolfi Pet','Casita Grande','Jardín','Stars','Manchas','7 gatos','Gansos']
+
+estampados.each { |estampado|
+  Pattern.create!(name: estampado)
+}
+
 categories = Category.all
 20.times do
   product_code = SecureRandom.base64

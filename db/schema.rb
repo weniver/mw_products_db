@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160701225643) do
+ActiveRecord::Schema.define(version: 20160702234208) do
 
   create_table "brands", force: :cascade do |t|
     t.string   "name"
@@ -38,12 +38,27 @@ ActiveRecord::Schema.define(version: 20160701225643) do
 
   add_index "categories", ["product_id"], name: "index_categories_on_product_id"
 
+  create_table "colors", force: :cascade do |t|
+    t.string   "real_color"
+    t.string   "hue"
+    t.string   "tone"
+    t.string   "darkness"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "fabrics", force: :cascade do |t|
     t.string   "material"
     t.string   "color"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.boolean  "out_of_stock", default: false
+  end
+
+  create_table "patterns", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "products", force: :cascade do |t|
@@ -76,8 +91,6 @@ ActiveRecord::Schema.define(version: 20160701225643) do
 
   create_table "units", force: :cascade do |t|
     t.string   "product_code"
-    t.string   "ink_color"
-    t.string   "print_style"
     t.decimal  "price_modifier", default: 1.0
     t.boolean  "sold",           default: false
     t.integer  "category_id"
@@ -86,10 +99,14 @@ ActiveRecord::Schema.define(version: 20160701225643) do
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
     t.integer  "fabric_id"
+    t.integer  "color_id"
+    t.integer  "pattern_id"
   end
 
   add_index "units", ["category_id"], name: "index_units_on_category_id"
+  add_index "units", ["color_id"], name: "index_units_on_color_id"
   add_index "units", ["fabric_id"], name: "index_units_on_fabric_id"
+  add_index "units", ["pattern_id"], name: "index_units_on_pattern_id"
   add_index "units", ["remission_id"], name: "index_units_on_remission_id"
   add_index "units", ["store_id"], name: "index_units_on_store_id"
 
