@@ -320,3 +320,9 @@ input {
   color: #4F4F4F;
   text-transform: lowercase;
 }
+
+#radio-hor {
+  display: flex;
+  justify-content: space-between;
+  width: auto;
+}

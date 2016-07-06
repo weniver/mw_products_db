@@ -53,20 +53,34 @@ estampados.each { |estampado|
   Pattern.create!(name: estampado)
 }
 
+color_sampler = ('0'..'9').to_a
+color_specials = color_sampler + ['n','s']
+5.times do
+  hue = color_specials.sample
+  tone = color_sampler.sample
+  darkness = color_sampler.sample
+  Color.create!(hue: hue,
+                tone: tone,
+                darkness: darkness)
+end
+
 categories = Category.all
+colors = Color.ids
+patterns = Pattern.ids
+fabric = Fabric.ids
 20.times do
   product_code = SecureRandom.base64
-  ink_color = Faker::Color.color_name
-  print_style = Faker::Team.creature
-  fabric_id = rand(1..5)
+  fabric_id = fabric.sample
+  color_id =  colors.sample
+  pattern_id = patterns.sample
   price_modifier = rand(1.0..2.0)
   sold = Faker::Boolean.boolean
   categories.each { |category| category.units.create!(product_code: product_code,
-                                                      ink_color: ink_color,
-                                                      print_style: print_style,
+                                                      fabric_id: fabric_id,
+                                                      color_id: color_id,
+                                                      pattern_id: pattern_id,
                                                       price_modifier: price_modifier,
-                                                      sold: sold,
-                                                      fabric_id: fabric_id) }
+                                                      sold: sold) }
 
 end
 

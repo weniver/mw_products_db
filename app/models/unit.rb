@@ -6,14 +6,11 @@ class Unit < ActiveRecord::Base
   belongs_to :color
   belongs_to :pattern
 
-  accepts_nested_attributes_for :colors
-  validates_presence_of :colors
-
-  validates :ink_color, presence: true
+  validates :color_id, presence: true
   validates :fabric_id, presence: true
-  validates :print_style, presence: true
+  validates :pattern_id, presence: true
 
-  attr_accessor :product_id, :category_id, :quantity
+  attr_accessor :product_id, :category_id, :quantity, :colors
 
   def sold_yes_or_no
     return self.sold ? "Sí" : "No"
