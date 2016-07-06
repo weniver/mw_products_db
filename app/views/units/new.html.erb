@@ -4,83 +4,84 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(@unit) do |f| %>
+      <%= render 'shared/error_messages_units' %>
 
-    <%= f.label :quantity, "Cantidad:" %>
-    <%= f.number_field :quantity, class: 'form-control' %>
+      <%= f.label :quantity, "Cantidad:" %>
+      <%= f.number_field :quantity, class: 'form-control' %>
+      <hr>
+
+    <div class="field">
+      <%= f.label :product_id, "Producto" %> <br/>
+      <%= f.collection_select :product_id, @products.order(:name), :id, :name, include_blank: true, prompt: "Selecciona un producto" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :category_id, "Categoria" %> <br/>
+      <%= f.grouped_collection_select :category_id, Product.order(:name), :categories, :name, :id, :name, include_blank: true, prompt: "Selecciona una categoria" %>
+    </div>
     <hr>
 
-  <div class="field">
-    <%= f.label :product_id, "Producto" %> <br/>
-    <%= f.collection_select :product_id, @products.order(:name), :id, :name, include_blank: true, prompt: "Selecciona un producto" %>
-  </div>
+    <div class="field">
+      <%= f.label :pattern_id, "Estampado:" %>
+      <%= f.collection_select(:pattern_id, Pattern.order(:name), :id, :name, prompt: "Selecciona un estampado")  %>
+    <br>
+    <hr>
+    <strong>Color:</strong>
+    <br><br>
+    <div class="field">
+      <%= f.fields_for :colors do |ff| %>
+        <div class="field">
+        <%= ff.label :hue, "Matiz", class: 'control-label' %></br>
+        <div class='radio-inline'><%= ff.radio_button :hue, '0', checked: true %> 0</div>
+        <div class='radio-inline'><%= ff.radio_button :hue, '1' %> 1</div>
+        <div class='radio-inline'><%= ff.radio_button :hue, '2' %> 2</div>
+        <div class='radio-inline'><%= ff.radio_button :hue, '3' %> 3</div>
+        <div class='radio-inline'><%= ff.radio_button :hue, '4' %> 4</div>
+        <div class='radio-inline'><%= ff.radio_button :hue, '5' %> 5</div>
+        <div class='radio-inline'><%= ff.radio_button :hue, '6' %> 6</div>
+        <div class='radio-inline'><%= ff.radio_button :hue, '7' %> 7</div>
+        <div class='radio-inline'><%= ff.radio_button :hue, '8' %> 8</div>
+        <div class='radio-inline'><%= ff.radio_button :hue, '9' %> 9</div>
+        <div class='radio-inline'><%= ff.radio_button :hue, 'n' %> n</div>
+        <div class='radio-inline'><%= ff.radio_button :hue, 's' %> s</div>
+        </div>
 
-  <div class="field">
-    <%= f.label :category_id, "Categoria" %> <br/>
-    <%= f.grouped_collection_select :category_id, Product.order(:name), :categories, :name, :id, :name, include_blank: true, prompt: "Selecciona una categoria" %>
-  </div>
-  <hr>
+        <div class="field">
+        <%= ff.label :tone, "Tono", class: 'control-label' %></br>
+        <div class='radio-inline'><%= ff.radio_button :tone, '0', checked: true  %> 0</div>
+        <div class='radio-inline'><%= ff.radio_button :tone, '1' %> 1</div>
+        <div class='radio-inline'><%= ff.radio_button :tone, '2' %> 2</div>
+        <div class='radio-inline'><%= ff.radio_button :tone, '3' %> 3</div>
+        <div class='radio-inline'><%= ff.radio_button :tone, '4' %> 4</div>
+        <div class='radio-inline'><%= ff.radio_button :tone, '5' %> 5</div>
+        <div class='radio-inline'><%= ff.radio_button :tone, '6' %> 6</div>
+        <div class='radio-inline'><%= ff.radio_button :tone, '7' %> 7</div>
+        <div class='radio-inline'><%= ff.radio_button :tone, '8' %> 8</div>
+        <div class='radio-inline'><%= ff.radio_button :tone, '9' %> 9</div>
+        </div>
 
-  <div class="field">
-    <%= f.label :pattern_id, "Estampado:" %>
-    <%= f.collection_select(:pattern_id, Pattern.order(:name), :id, :name, prompt: "Selecciona un estampado")  %>
-  <br>
-  <hr>
-  <strong>Color:</strong>
-  <br><br>
-  <div class="field">
-    <%= f.fields_for :colors do |ff| %>
-      <div class="field">
-      <%= ff.label :hue, "Matiz", class: 'control-label' %></br>
-      <div class='radio-inline'><%= ff.radio_button :hue, '0' %> 0</div>
-      <div class='radio-inline'><%= ff.radio_button :hue, '1' %> 1</div>
-      <div class='radio-inline'><%= ff.radio_button :hue, '2' %> 2</div>
-      <div class='radio-inline'><%= ff.radio_button :hue, '3' %> 3</div>
-      <div class='radio-inline'><%= ff.radio_button :hue, '4' %> 4</div>
-      <div class='radio-inline'><%= ff.radio_button :hue, '5' %> 5</div>
-      <div class='radio-inline'><%= ff.radio_button :hue, '6' %> 6</div>
-      <div class='radio-inline'><%= ff.radio_button :hue, '7' %> 7</div>
-      <div class='radio-inline'><%= ff.radio_button :hue, '8' %> 8</div>
-      <div class='radio-inline'><%= ff.radio_button :hue, '9' %> 9</div>
-      <div class='radio-inline'><%= ff.radio_button :hue, 'n' %> n</div>
-      <div class='radio-inline'><%= ff.radio_button :hue, 's' %> s</div>
-      </div>
+        <div class="field">
+        <%= ff.label :darkness, "Oscuridad" %></br>
+        <div class='radio-inline'><%= ff.radio_button :darkness, '0', checked: true  %> 0</div>
+        <div class='radio-inline'><%= ff.radio_button :darkness, '1' %> 1</div>
+        <div class='radio-inline'><%= ff.radio_button :darkness, '2' %> 2</div>
+        <div class='radio-inline'><%= ff.radio_button :darkness, '3' %> 3</div>
+        <div class='radio-inline'><%= ff.radio_button :darkness, '4' %> 4</div>
+        <div class='radio-inline'><%= ff.radio_button :darkness, '5' %> 5</div>
+        <div class='radio-inline'><%= ff.radio_button :darkness, '6' %> 6</div>
+        <div class='radio-inline'><%= ff.radio_button :darkness, '7' %> 7</div>
+        <div class='radio-inline'><%= ff.radio_button :darkness, '8' %> 8</div>
+        <div class='radio-inline'><%= ff.radio_button :darkness, '9' %> 9</div>
+        </div>
+      <% end %>
+    <hr>
+    <br>
+    </div>
+      <%= f.label :fabric_id, "Tela:" %>
+      <%= f.collection_select(:fabric_id, Fabric.all, :id, :material_and_color, prompt: "Selecciona una tela") %>
+    <hr>
 
-      <div class="field">
-      <%= ff.label :tone, "Tono", class: 'control-label' %></br>
-      <div class='radio-inline'><%= ff.radio_button :tone, '0' %> 0</div>
-      <div class='radio-inline'><%= ff.radio_button :tone, '1' %> 1</div>
-      <div class='radio-inline'><%= ff.radio_button :tone, '2' %> 2</div>
-      <div class='radio-inline'><%= ff.radio_button :tone, '3' %> 3</div>
-      <div class='radio-inline'><%= ff.radio_button :tone, '4' %> 4</div>
-      <div class='radio-inline'><%= ff.radio_button :tone, '5' %> 5</div>
-      <div class='radio-inline'><%= ff.radio_button :tone, '6' %> 6</div>
-      <div class='radio-inline'><%= ff.radio_button :tone, '7' %> 7</div>
-      <div class='radio-inline'><%= ff.radio_button :tone, '8' %> 8</div>
-      <div class='radio-inline'><%= ff.radio_button :tone, '9' %> 9</div>
-      </div>
-
-      <div class="field">
-      <%= ff.label :darkness, "Oscuridad" %></br>
-      <div class='radio-inline'><%= ff.radio_button :darkness, '0' %> 0</div>
-      <div class='radio-inline'><%= ff.radio_button :darkness, '1' %> 1</div>
-      <div class='radio-inline'><%= ff.radio_button :darkness, '2' %> 2</div>
-      <div class='radio-inline'><%= ff.radio_button :darkness, '3' %> 3</div>
-      <div class='radio-inline'><%= ff.radio_button :darkness, '4' %> 4</div>
-      <div class='radio-inline'><%= ff.radio_button :darkness, '5' %> 5</div>
-      <div class='radio-inline'><%= ff.radio_button :darkness, '6' %> 6</div>
-      <div class='radio-inline'><%= ff.radio_button :darkness, '7' %> 7</div>
-      <div class='radio-inline'><%= ff.radio_button :darkness, '8' %> 8</div>
-      <div class='radio-inline'><%= ff.radio_button :darkness, '9' %> 9</div>
-      </div>
+      <%= f.submit "Crear las Unidades", class: "btn btn-primary" %>
     <% end %>
-  <hr>
-  <br>
-  </div>
-    <%= f.label :fabric_id, "Tela:" %>
-    <%= f.collection_select(:fabric_id, Fabric.all, :id, :material_and_color, prompt: "Selecciona una tela") %>
-  <hr>
-
-    <%= f.submit "Crear las Unidades", class: "btn btn-primary" %>
-  <% end %>
   </div>
 </div>

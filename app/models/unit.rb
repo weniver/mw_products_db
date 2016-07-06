@@ -9,8 +9,9 @@ class Unit < ActiveRecord::Base
   validates :color_id, presence: true
   validates :fabric_id, presence: true
   validates :pattern_id, presence: true
+  validate :extra_validations
 
-  attr_accessor :product_id, :category_id, :quantity, :colors
+  attr_accessor :product_id, :quantity, :colors
 
   def sold_yes_or_no
     return self.sold ? "Sí" : "No"
@@ -25,4 +26,20 @@ class Unit < ActiveRecord::Base
     income = self.price_modifier * self.category.price
     return self.sold ? ": #{income.round(2)}" : ""
   end
+
+  private
+    def extra_validations
+      if self.quantity.blank?
+        self.errors[:base] << "Quantity can't be blank"
+      end
+      if self.product_id.blank?
+        self.errors[:base] << "You need to select a product"
+      end
+      if self.category_id.blank?
+        self.errors[:base] << "You need to select a category"
+      end
+      if self.colors.blank?
+        self.errors[:base] << "You need to select a color"
+      end
+    end
 end
