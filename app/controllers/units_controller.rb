@@ -13,8 +13,12 @@ class UnitsController < ApplicationController
   def create
     @unit = Unit.new(unit_params)
     @products = current_brand.products
-    if @unit.save
-      flash[:info] = "Se generaron #{@unit.quantity} unidades de #{@unit.category.name}"
+    if @unit.valid?
+      @unit.quantity.to_i.times do
+        copy = @unit.dup
+        copy.save
+      end
+      flash[:info] = "Se generaron #{@unit.quantity} unidades de #{@unit.category.name} a #{@unit.category.product.name}."
       redirect_to category_url(@unit.category)
     else
       render 'new'

@@ -41,5 +41,14 @@ class Unit < ActiveRecord::Base
       if self.colors.blank?
         self.errors[:base] << "You need to select a color"
       end
+      if self.quantity == '0'
+        self.errors[:base] << "Quanity can't be zero"
+      end
+      unless self.quantity.to_f % 1 == 0
+        self.errors[:base] << "Quanity needs to be an integer"
+      end
+      if self.quantity.to_f.negative?
+        self.errors[:base] << "Quanity needs to be positive"
+      end
     end
 end
