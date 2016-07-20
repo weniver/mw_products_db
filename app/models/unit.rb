@@ -6,10 +6,14 @@ class Unit < ActiveRecord::Base
   belongs_to :color
   belongs_to :pattern
 
+  before_save :create_unit_code
+
   validates :color_id, presence: true
   validates :fabric_id, presence: true
   validates :pattern_id, presence: true
   validate :extra_validations
+
+  include ProductsHelper
 
   attr_accessor :product_id, :quantity, :colors
 
@@ -25,6 +29,11 @@ class Unit < ActiveRecord::Base
   def sold_price
     income = self.price_modifier * self.category.price
     return self.sold ? ": #{income.round(2)}" : ""
+  end
+
+  def create_unit_code
+    code = code_product + code_category + self.pattern.code + self.color.real_color + special_code_fabric
+    self.product_code = code.upcase.delete(' ')
   end
 
   private
@@ -49,6 +58,26 @@ class Unit < ActiveRecord::Base
       end
       if self.quantity.to_f.negative?
         self.errors[:base] << "Quanity needs to be positive"
+      end
+    end
+
+    def code_product
+      self.category.product.name[0...3]
+    end
+
+    def code_category
+      if category_is_product_name(self.category)
+        return ''
+      else
+        return self.category.name[0...2]
+      end
+    end
+
+    def special_code_fabric
+      if self.fabric.material == "Lino"
+        return 'L'
+      else
+        return ''
       end
     end
 end

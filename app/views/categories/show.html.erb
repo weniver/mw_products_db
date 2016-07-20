@@ -1,11 +1,10 @@
-<h1 id="product_name_show"><%= @category.product.name %> <span id="category_name_show"><%= @category.units.count %> <%= @category.name %></span></h1>
+<h1 id="product_name_show"><%= @category.product.name %> -<span id="category_name_show"> <%= @category.name %> (<%= @category.units.count %>)</span></h1>
 <hr>
 
 <table id="products" class="table table-striped table-bordered" cellspacing="0" width="100%">
   <thead>
     <tr>
-      <th>Producto</th>
-      <th>Categoria</th>
+      <th>Codigo</th>
       <th>Estampado: color</th>
       <th>Tela</th>
       <th>¿Vendido?</th>
@@ -15,8 +14,7 @@
   <tbody>
   <% @units.each do |unit| %>
     <tr>
-      <td><%= unit.category.product.name %></td>
-      <td><%= unit.category.name %></td>
+      <td><%= unit.product_code %></td>
       <td><%= unit.pattern.name %>: <%= unit.color.real_color %></td>
       <td><%= unit.fabric.material %> <%= unit.fabric.color.capitalize %></td>
       <td><%= unit.sold_yes_or_no %><%= unit.sold_price %></td>
