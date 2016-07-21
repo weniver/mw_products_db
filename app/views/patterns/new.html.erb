@@ -1,0 +1,18 @@
+<% provide(:title, 'Sign up') %>
+<h1>Agregar Estampado:</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@pattern) do |f| %>
+      <%= render 'shared/error_messages_patterns' %>
+
+      <%= f.label :name, "Nombre:" %>
+      <%= f.text_field :name, class: 'form-control' %>
+
+      <%= f.label :code, "Clave para el Codigo:" %>
+      <%= f.text_field :code, class: 'form-control' %>
+
+      <%= f.submit "Agregar Estampado", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

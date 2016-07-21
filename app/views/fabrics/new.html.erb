@@ -1,0 +1,18 @@
+<% provide(:title, 'Sign up') %>
+<h1>Agregar Tela:</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@fabric) do |f| %>
+      <%= render 'shared/error_messages_fabrics' %>
+
+      <%= f.label :material, "Tela:" %>
+      <%= f.text_field :material, class: 'form-control' %>
+
+      <%= f.label :color, "Color:" %>
+      <%= f.text_field :color, class: 'form-control' %>
+
+      <%= f.submit "Agregar Tela", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

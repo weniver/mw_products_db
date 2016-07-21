@@ -44,7 +44,8 @@ end
   material = ['Algodón', 'Lino', 'Seda'].sample
   color = Faker::Color.color_name
   Fabric.create!(material: material,
-                 color: color)
+                 color: color,
+                 brand_id: 2)
 end
 
 estampados = {'Twitcher' => 'TWIT',
@@ -67,7 +68,8 @@ estampados = {'Twitcher' => 'TWIT',
 
 estampados.each { |estampado, codigo|
   Pattern.create!(name: estampado,
-                  code: codigo)
+                  code: codigo,
+                  brand_id: 2)
 }
 
 color_sampler = ('0'..'9').to_a
