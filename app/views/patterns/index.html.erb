@@ -1,2 +1,40 @@
-<h1>Patterns#index</h1>
-<p>Find me in app/views/patterns/index.html.erb</p>
+<% provide(:title, 'Telas y Estampados') %>
+<div class="container">
+  <h1>Telas y Estampados en la Base de Datos</h1>
+  <hr>
+  <h2 class='title-index'><%= @fabrics.count %> Telas:</h2>
+    <ul class="list-group">
+      <% @fabrics.select(:material).map(&:material).uniq.each do |fabric| %>
+        <li class="list-group-item"><span class="badge">
+        <%= @fabrics.where(material: fabric).count %></span>
+            <h4 class="list-group-item-heading"><%= fabric %></h4>
+            <% @fabrics.each do |f| %>
+              <% if f.material == fabric %>
+                <p class="list-group-item-text"><%= f.color %>
+                  <span class="link-stock">
+                    <%= link_to "editar", edit_fabric_path(f) %>
+                    <%= link_to "eliminar", f, method: :delete, data: { confirm: "Eliminar de la Base de Datos" } %>
+                  </span></p>
+              <% end %>
+            <% end %>
+      </li>
+     <% end %>
+    </ul>
+    <h2 class='title-index'><%= @patterns.count %> Estampados:</h2>
+      <ul class="list-group">
+        <% @patterns.each do |pattern| %>
+        <li class="list-group-item">
+            <h4 class="list-group-item-heading"><%= pattern.name %>
+              <span class="link-stock">
+                <%= link_to "editar", edit_pattern_path(pattern) %>  <%= link_to "eliminar", pattern, method: :delete, data: { confirm: "Eliminar de la Base de Datos" } %>
+              </span>
+            </h4>
+
+            <p class="list-group-item-text"><%= pattern.code %> </p>
+        </li>
+        <% end %>
+
+
+
+
+      </ul>

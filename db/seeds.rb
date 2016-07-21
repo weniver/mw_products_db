@@ -40,13 +40,17 @@ products.each do |product|
   end
 end
 
-5.times do
-  material = ['Algodón', 'Lino', 'Seda'].sample
-  color = Faker::Color.color_name
-  Fabric.create!(material: material,
-                 color: color,
-                 brand_id: 2)
-end
+telas = { 'Algodón' => ['Negro', 'Gris Oxford', 'Gris Perla', 'Rojo', 'Blanco'],
+          'Lino'    => ['Verde'],
+          'Popelina'=> ['Azul','Negra'] }
+
+telas.each { |tela,colores|
+  colores.each {|color|
+    Fabric.create!(material: tela,
+                   color: color,
+                   brand_id: 2)
+  }
+}
 
 estampados = {'Twitcher' => 'TWIT',
               'Twitcher Mini' => 'TWMI',

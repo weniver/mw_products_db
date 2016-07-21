@@ -69,7 +69,7 @@ class Unit < ActiveRecord::Base
       if category_is_product_name(self.category)
         return ''
       else
-        return self.category.name[0...2]
+        return self.category.name.first
       end
     end
 

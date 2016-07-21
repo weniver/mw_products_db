@@ -11,9 +11,29 @@ class FabricsController < ApplicationController
     if @fabric.save
       # TODO: Redirigir a pagina donde se vea todas las fabrics y los patrones.
       flash[:success] = "La Nueva Tela se Agrego Exitosamente."
-      redirect_to root_url
+      redirect_to patterns_url
     else
       render 'new'
+    end
+  end
+
+  def destroy
+    Fabric.find(params[:id]).destroy
+    flash[:success] = "Tela Eliminada"
+    redirect_to patterns_url
+  end
+
+  def edit
+    @fabric = Fabric.find(params[:id])
+  end
+
+  def update
+    @fabric = Fabric.find(params[:id])
+    if @fabric.update_attributes(fabric_params)
+      flash[:success] = 'Tela Editada'
+      redirect_to patterns_url
+    else
+      render 'edit'
     end
   end
 
