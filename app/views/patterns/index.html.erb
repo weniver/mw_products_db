@@ -12,8 +12,13 @@
               <% if f.material == fabric %>
                 <p class="list-group-item-text"><%= f.color %>
                   <span class="link-stock">
-                    <%= link_to "editar", edit_fabric_path(f) %>
-                    <%= link_to "eliminar", f, method: :delete, data: { confirm: "Eliminar de la Base de Datos" } %>
+                    <%= link_to edit_fabric_path(f) do%>
+                     <span class="glyphicon glyphicon-pencil"></span>
+                    <% end %>
+                    <%= link_to f, method: :delete,
+                                   data: { confirm: "Eliminar de la Base de Datos" }  do %>
+                      <span class="glyphicon glyphicon-trash">
+                    <% end %>
                   </span></p>
               <% end %>
             <% end %>
@@ -26,7 +31,13 @@
         <li class="list-group-item">
             <h4 class="list-group-item-heading"><%= pattern.name %>
               <span class="link-stock">
-                <%= link_to "editar", edit_pattern_path(pattern) %>  <%= link_to "eliminar", pattern, method: :delete, data: { confirm: "Eliminar de la Base de Datos" } %>
+                <%= link_to edit_pattern_path(pattern) do %>
+                 <span class="glyphicon glyphicon-pencil"></span>
+                <% end %>
+                <%= link_to pattern, method: :delete,
+                                     data: { confirm: "Eliminar de la Base de Datos" }  do %>
+                  <span class="glyphicon glyphicon-trash">
+                <% end %>
               </span>
             </h4>
 

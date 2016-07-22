@@ -1,5 +1,5 @@
 class PatternsController < ApplicationController
-  before_action :correct_brand, only: [:new, :create, :edit, :update]
+  before_action :correct_brand, only: [:destroy, :edit, :update]
 
   def new
     @pattern = Pattern.new
@@ -50,5 +50,7 @@ class PatternsController < ApplicationController
 
     # Before filters
     def correct_brand
+      @pattern = Pattern.find(params[:id])
+      redirect_to(root_url) unless @pattern.brand == current_brand
     end
 end

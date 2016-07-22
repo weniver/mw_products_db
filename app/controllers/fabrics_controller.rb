@@ -1,5 +1,5 @@
 class FabricsController < ApplicationController
-  before_action :correct_brand, only: [:edit, :update]
+  before_action :correct_brand, only: [:destroy, :edit, :update]
 
   def new
     @fabric = Fabric.new
@@ -46,7 +46,7 @@ class FabricsController < ApplicationController
 
     # Before filters
     def correct_brand
-      @product = current_brand.products.find(params[:id])
-      redirect_to(root_url) unless correct_brand_for_product?(@product)
+      @fabric = Fabric.find(params[:id])
+      redirect_to(root_url) unless @fabric.brand == current_brand
     end
 end
