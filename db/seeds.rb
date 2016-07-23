@@ -78,7 +78,7 @@ estampados.each { |estampado, codigo|
 
 color_sampler = ('0'..'9').to_a
 color_specials = color_sampler + ['n','s']
-5.times do
+20.times do
   hue = color_specials.sample
   tone = color_sampler.sample
   darkness = color_sampler.sample
@@ -105,6 +105,7 @@ fabrics = Fabric.ids
                                                                    color_id: color_id,
                                                                    pattern_id: pattern_id,
                                                                    price_modifier: price_modifier,
+                                                                   brand_id: 2,
                                                                    sold: sold) }
 
 end

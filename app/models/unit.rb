@@ -5,6 +5,7 @@ class Unit < ActiveRecord::Base
   belongs_to :fabric
   belongs_to :color
   belongs_to :pattern
+  belongs_to :brand
 
   before_save :create_unit_code
 

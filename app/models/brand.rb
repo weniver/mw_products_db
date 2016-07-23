@@ -3,6 +3,7 @@ class Brand < ActiveRecord::Base
   has_many :products, dependent: :destroy
   has_many :fabrics, dependent: :destroy
   has_many :patterns, dependent: :destroy
+  has_many :units, dependent: :destroy
 
   validates :name,  presence: true,
                     length: { maximum: 50 }

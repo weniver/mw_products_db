@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160721003603) do
+ActiveRecord::Schema.define(version: 20160722205247) do
 
   create_table "brands", force: :cascade do |t|
     t.string   "name"
@@ -108,8 +108,10 @@ ActiveRecord::Schema.define(version: 20160721003603) do
     t.integer  "fabric_id"
     t.integer  "color_id"
     t.integer  "pattern_id"
+    t.integer  "brand_id"
   end
 
+  add_index "units", ["brand_id"], name: "index_units_on_brand_id"
   add_index "units", ["category_id"], name: "index_units_on_category_id"
   add_index "units", ["color_id"], name: "index_units_on_color_id"
   add_index "units", ["fabric_id"], name: "index_units_on_fabric_id"

@@ -11,6 +11,7 @@
       <th>Tela</th>
       <th>¿Vendido?</th>
       <th>Ubicación</th>
+      <th><span class="glyphicon glyphicon-pencil"></span>|<span class="glyphicon glyphicon-trash"></span></th>
     </tr>
   </thead>
   <tbody>
@@ -23,6 +24,13 @@
       <td><%= unit.fabric.material %> <%= unit.fabric.color.capitalize %></td>
       <td><%= unit.sold_yes_or_no %><%= unit.sold_price %></td>
       <td><%= unit.where_is_it %></td>
+      <td><%= link_to edit_unit_path(unit) do%>
+       <span class="glyphicon glyphicon-pencil"></span>
+      <% end %>
+      |<%= link_to unit, method: :delete,
+                     data: { confirm: "Eliminar de la Base de Datos" }  do %>
+        <span class="glyphicon glyphicon-trash"></span>
+      <% end %></td>
     </tr>
   <% end %>
   </tbody>

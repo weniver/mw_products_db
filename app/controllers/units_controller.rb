@@ -11,7 +11,7 @@ class UnitsController < ApplicationController
   end
 
   def create
-    @unit = Unit.new(unit_params)
+    @unit = current_brand.units.new(unit_params)
     @products = current_brand.products
     if @unit.valid?
       @unit.quantity.to_i.times do
@@ -22,6 +22,28 @@ class UnitsController < ApplicationController
       redirect_to category_url(@unit.category)
     else
       render 'new'
+    end
+  end
+
+  def destroy
+    Unit.find(params[:id]).destroy
+    flash[:success] = "Producto Eliminado"
+    redirect_to units_url
+  end
+
+  def edit
+    @unit = Unit.find(params[:id])
+    @products = current_brand.products
+  end
+
+  def update
+    @unit = Unit.find(params[:id])
+    @products = current_brand.products
+    if @unit.update_attributes(unit_params)
+      flash[:success] = 'Producto Editado'
+      redirect_to units_url
+    else
+      render 'edit'
     end
   end
 
