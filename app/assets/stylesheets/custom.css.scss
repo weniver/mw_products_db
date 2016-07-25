@@ -64,6 +64,11 @@ h2 {
   color: #F1BFB8;
 }
 
+h2.title-index  {
+  font-size: 2.2em;
+  font-weight: bold;
+}
+
 p {
   font-size: 1.1em;
   line-height: 1.7em;
@@ -319,4 +324,15 @@ input {
   font-size: 0.7em;
   color: #4F4F4F;
   text-transform: lowercase;
+}
+
+#radio-hor {
+  display: flex;
+  justify-content: space-between;
+  width: auto;
+}
+
+.link-stock {
+  float: right;
+  font-size: 0.8em;
 }

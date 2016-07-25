@@ -40,22 +40,72 @@ products.each do |product|
   end
 end
 
-categories = Category.all
+telas = { 'Algodón' => ['Negro', 'Gris Oxford', 'Gris Perla', 'Rojo', 'Blanco'],
+          'Lino'    => ['Verde'],
+          'Popelina'=> ['Azul','Negra'] }
+
+telas.each { |tela,colores|
+  colores.each {|color|
+    Fabric.create!(material: tela,
+                   color: color,
+                   brand_id: 2)
+  }
+}
+
+estampados = {'Twitcher' => 'TWIT',
+              'Twitcher Mini' => 'TWMI',
+              'Casita Nochtototl' => 'TOTL',
+              'Wolfi' => 'WOLF',
+              'Plumifero' => 'PLUM',
+              'Saeta' => 'SAET',
+              'Espiguilla' => 'ESPI',
+              'Primavera' => 'PRIM',
+              'Flower' => 'FLOR',
+              'Señor Gatucho' => 'SRGA',
+              'Wolfi Pet' => 'WPET',
+              'Casita Grande' => 'CASA',
+              'Jardín' => 'JARD',
+              'Stars' => 'STAR',
+              'Manchas' => 'MANC',
+              '7 gatos' => '7GAT',
+              'Gansos' => 'GANS' }
+
+estampados.each { |estampado, codigo|
+  Pattern.create!(name: estampado,
+                  code: codigo,
+                  brand_id: 2)
+}
+
+color_sampler = ('0'..'9').to_a
+color_specials = color_sampler + ['n','s']
 20.times do
-  product_code = SecureRandom.base64
-  ink_color = Faker::Color.color_name
-  fabric_color = Faker::Color.color_name
-  print_style = Faker::Team.creature
+  hue = color_specials.sample
+  tone = color_sampler.sample
+  darkness = color_sampler.sample
+  Color.create!(hue: hue,
+                tone: tone,
+                darkness: darkness)
+end
+
+products = Product.all
+colors = Color.ids
+patterns = Pattern.ids
+fabrics = Fabric.ids
+20.times do
+  fabric_id = fabrics.sample
+  color_id =  colors.sample
+  pattern_id = patterns.sample
+  product_id = products.sample
   price_modifier = rand(1.0..2.0)
   sold = Faker::Boolean.boolean
-  fabric = ['wool','cotton','silk'].sample
-  categories.each { |category| category.units.create!(product_code: product_code,
-                                                      ink_color: ink_color,
-                                                      fabric_color: fabric_color,
-                                                      print_style: print_style,
-                                                      price_modifier: price_modifier,
-                                                      sold: sold,
-                                                      fabric: fabric) }
+  products.each { |product| product.categories.first.units.create!(quantity: 4,
+                                                                   colors: '123',
+                                                                   product_id: product.id,
+                                                                   fabric_id: fabric_id,
+                                                                   color_id: color_id,
+                                                                   pattern_id: pattern_id,
+                                                                   price_modifier: price_modifier,
+                                                                   sold: sold) }
 
 end
 
