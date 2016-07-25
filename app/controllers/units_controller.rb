@@ -11,7 +11,7 @@ class UnitsController < ApplicationController
   end
 
   def create
-    @unit = current_brand.units.new(unit_params)
+    @unit = Unit.new(unit_params)
     @products = current_brand.products
     if @unit.valid?
       @unit.quantity.to_i.times do
@@ -28,7 +28,7 @@ class UnitsController < ApplicationController
   def destroy
     Unit.find(params[:id]).destroy
     flash[:success] = "Producto Eliminado"
-    redirect_to units_url
+    redirect_to :back
   end
 
   def edit
@@ -41,7 +41,7 @@ class UnitsController < ApplicationController
     @products = current_brand.products
     if @unit.update_attributes(unit_params)
       flash[:success] = 'Producto Editado'
-      redirect_to units_url
+      redirect_to :back
     else
       render 'edit'
     end

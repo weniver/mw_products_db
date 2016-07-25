@@ -105,7 +105,6 @@ fabrics = Fabric.ids
                                                                    color_id: color_id,
                                                                    pattern_id: pattern_id,
                                                                    price_modifier: price_modifier,
-                                                                   brand_id: 2,
                                                                    sold: sold) }
 
 end

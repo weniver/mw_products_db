@@ -1,11 +1,10 @@
 class Unit < ActiveRecord::Base
-  belongs_to :category, dependent: :destroy
+  belongs_to :category
   belongs_to :store
   belongs_to :remission
   belongs_to :fabric
   belongs_to :color
   belongs_to :pattern
-  belongs_to :brand
 
   before_save :create_unit_code
 

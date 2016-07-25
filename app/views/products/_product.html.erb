@@ -13,7 +13,14 @@
         <span class="name category"><%= link_to category.name, category_path(category) %></span>
       </li>
       <% end %>
-      <li class="product_index_edit_link"><%= link_to "Editar Producto/Categorias", edit_product_url(product) %></li>
+      <li class="product_index_edit_link">
+        <%= link_to edit_product_path(product) do%>
+         <span class="glyphicon glyphicon-pencil"></span>
+        <% end %> |
+        <%= link_to product, method: :delete,
+                             data: { confirm: "Eliminar Producto con Todas sus Categorias y todas sus Unidades" }  do %>
+        <span class="glyphicon glyphicon-trash"></span>
+      <% end %>Productos/Categorias</td></li>
     </ol>
     </div>
 </div>
