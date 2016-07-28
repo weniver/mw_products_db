@@ -11,7 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160725163213) do
+ActiveRecord::Schema.define(version: 20160725195326) do
+
+  create_table "batches", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "brands", force: :cascade do |t|
     t.string   "name"
@@ -108,8 +113,10 @@ ActiveRecord::Schema.define(version: 20160725163213) do
     t.integer  "fabric_id"
     t.integer  "color_id"
     t.integer  "pattern_id"
+    t.integer  "batch_id"
   end
 
+  add_index "units", ["batch_id"], name: "index_units_on_batch_id"
   add_index "units", ["category_id"], name: "index_units_on_category_id"
   add_index "units", ["color_id"], name: "index_units_on_color_id"
   add_index "units", ["fabric_id"], name: "index_units_on_fabric_id"

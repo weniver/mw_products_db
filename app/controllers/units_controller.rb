@@ -56,6 +56,7 @@ class UnitsController < ApplicationController
                                    :pattern_id,
                                    :fabric_id,
                                    :color_id,
+                                   :batch_id,
                                     colors:
                                   [:hue, :tone, :darkness])
     end

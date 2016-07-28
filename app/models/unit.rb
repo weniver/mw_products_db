@@ -5,8 +5,9 @@ class Unit < ActiveRecord::Base
   belongs_to :fabric
   belongs_to :color
   belongs_to :pattern
+  belongs_to :batch
 
-  before_save :create_unit_code
+  before_save :create_unit_code, :assign_batch
 
   validates :color_id, presence: true
   validates :fabric_id, presence: true
@@ -78,6 +79,14 @@ class Unit < ActiveRecord::Base
         return 'L'
       else
         return ''
+      end
+    end
+
+    def assign_batch
+      if self.quantity > 1
+        Batch.maximum(:id).nil? ? 1 : Batch.maximum(:id).next
+      else
+        nil
       end
     end
 end
