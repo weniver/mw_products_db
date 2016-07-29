@@ -1,5 +1,5 @@
 class UnitsController < ApplicationController
-  before_action :check_and_create_color, only: :create
+  before_action :check_and_create_color, only: [:create, :update]
 
   def index
     @units = Unit.all
@@ -14,6 +14,8 @@ class UnitsController < ApplicationController
     @unit = Unit.new(unit_params)
     @products = current_brand.products
     if @unit.valid?
+      #if unit quantity is more than one it creates a batch that is the same for all the units
+      @unit.create_units_batch
       @unit.quantity.to_i.times do
         copy = @unit.dup
         copy.save
@@ -36,14 +38,35 @@ class UnitsController < ApplicationController
     @products = current_brand.products
   end
 
+# TODO: Refactor update
   def update
     @unit = Unit.find(params[:id])
     @products = current_brand.products
-    if @unit.update_attributes(unit_params)
-      flash[:success] = 'Producto Editado'
-      redirect_to :back
+    #if edit is in batch, searchs for all the units in the batch
+    if params[:unit][:edit_all_batch] == true
+      @units = @unit.batch.units.all
+      if @unit.update_attributes(unit_params)
+        @units.each do |unit|
+          unit.update_attributes(unit_params)
+        end
+        flash[:success] = 'Lote Editado'
+        return redirect_to @units.first.category
+      else
+        return render 'edit'
+      end
+    #if user wants to edit only a single unit from a batch.
+    #The batch_number of that unit is lost after edit.
+    elsif @unit.batch != nil && @unit.update_attributes(unit_params)
+        @unit.update_attribute(:batch_id, nil)
+        flash[:success] = "El producto ha sido editado y removido del lote. La pieza ahora es indepentiente."
+        return redirect_to @unit.category
+      #if edit is for only one unit andbatch is nil
+    elsif @unit.update_attributes(unit_params)
+        flash[:success] = 'Producto Editado'
+        redirect_to @unit.category
     else
-      render 'edit'
+        flash[:warning] = "El producto ha sido editado y removido del lote. La pieza ahora es indepentiente."
+        render 'edit'
     end
   end
 
@@ -57,8 +80,9 @@ class UnitsController < ApplicationController
                                    :fabric_id,
                                    :color_id,
                                    :batch_id,
+                                   :edit_all_batch,
                                     colors:
-                                  [:hue, :tone, :darkness])
+                                  [:id, :hue, :tone, :darkness])
     end
 
     def check_and_create_color
@@ -66,8 +90,8 @@ class UnitsController < ApplicationController
       tone = params[:unit][:colors][:tone]
       darkness = params[:unit][:colors][:darkness]
       color = Color.new(hue: hue,
-                          tone: tone,
-                          darkness: darkness)
+                        tone: tone,
+                        darkness: darkness)
       #if the color is valid it already exists in Colors so it gives the color_id to the unit
       unless color.valid?
         color_in_record = Color.find_by(real_color: color.real_color)

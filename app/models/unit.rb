@@ -1,4 +1,6 @@
 class Unit < ActiveRecord::Base
+  include ProductsHelper
+
   belongs_to :category
   belongs_to :store
   belongs_to :remission
@@ -7,16 +9,13 @@ class Unit < ActiveRecord::Base
   belongs_to :pattern
   belongs_to :batch
 
-  before_save :create_unit_code, :assign_batch
+  before_save :create_unit_code
 
   validates :color_id, presence: true
   validates :fabric_id, presence: true
   validates :pattern_id, presence: true
-  validate :extra_validations
-
-  include ProductsHelper
-
-  attr_accessor :product_id, :quantity, :colors
+  validate  :extra_validations
+  attr_accessor :product_id, :quantity, :colors, :edit_all_batch
 
   def sold_yes_or_no
     return self.sold ? "Sí" : "No"
@@ -35,6 +34,13 @@ class Unit < ActiveRecord::Base
   def create_unit_code
     code = code_product + code_category + self.pattern.code + self.color.real_color + special_code_fabric
     self.product_code = code.upcase.delete(' ')
+  end
+
+  def create_units_batch
+      if self.quantity.to_i > 1
+        Batch.create!
+        self.batch_id = Batch.maximum(:id)
+      end
   end
 
   private
@@ -79,14 +85,6 @@ class Unit < ActiveRecord::Base
         return 'L'
       else
         return ''
-      end
-    end
-
-    def assign_batch
-      if self.quantity > 1
-        Batch.maximum(:id).nil? ? 1 : Batch.maximum(:id).next
-      else
-        nil
       end
     end
 end

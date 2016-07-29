@@ -5,8 +5,9 @@ Rails.application.routes.draw do
   post   'login'  => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
   get    'telas_estampados' => 'patterns#index'
-  
+
   resources :patterns
+  resources :batches,                only: [:index, :destroy]
   resources :fabrics
   resources :users
   resources :account_activations,    only: [:edit]
