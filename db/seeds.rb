@@ -16,27 +16,25 @@ User.create!(name: "Ivonne",
             activated_at: Time.zone.now,
             brands_attributes: [name: 'Mama Wolf'])
 
+productos = {  'Mandiles'        => ['Pollos','Peces', 'Lady','Marchante'],
+               'Rellenos'        => ['Grande','Chico'],
+               'Cojines'         => ['Grande','Chico','Gato','Casita'],
+               'Mochilas'        => ['Estandar'],
+               'Carteras'        => ['Mediana','Mini'],
+               'Fundas'          => ['iPad','Laptop','Kindle'],
+               'Bolsas'          => ['Alta', 'Ancha', 'Tote', 'Weekend Bag',
+                                     'Satchel'],
+               'Cosmetiqueras'   => ['Grande','Chica'],
+               'Estuches'        => ['XL', 'Estandar'],
+               'Lapiceros'       => ['Estandar'],
+               'Monederos'       => ['Mini', 'Largo', 'Estandar'] }
+
 brand = Brand.second
-65.times do
-  name = Faker::Commerce.product_name
-  brand.products.create!(name: name)
-end
-
-products = Product.take(10)
-3.times do
-  name = Faker::Book.title
-  price = Faker::Commerce.price
-  products.each { |product| product.categories.create!(name:  name,
-                                                       price: price) }
-end
-
-products = Product.all
-products.each do |product|
-  unless product.categories.any?
-    name = product.name
-    price = Faker::Commerce.price
-    product.categories.create!(name:  name,
-                               price: price)
+productos.each do |producto,categorias|
+  last_product = brand.products.create!(name: producto)
+  categorias.each do |categoria|
+    last_product.categories.create!(name:  categoria,
+                                    price: 1)
   end
 end
 
