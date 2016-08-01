@@ -1,0 +1,29 @@
+<% provide(:title, 'Editar Tienda') %>
+<h1>Editar Tienda:</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@store) do |f| %>
+      <%= render 'shared/error_messages_stores' %>
+
+      <%= f.label :name, "Nombre:" %>
+      <%= f.text_field :name, class: 'form-control' %>
+    <hr>
+      <h2>Información Adicional (opcional):</h2>
+
+      <%= f.label :address, "Dirección:" %>
+      <%= f.text_area :address, class: 'form-control' %>
+
+      <%= f.label :email, "Correo Electrónico:" %>
+      <%= f.email_field :email, class: 'form-control' %>
+
+      <%= f.label :rfc, "RFC:" %>
+      <%= f.text_field :rfc, class: 'form-control' %>
+
+      <%= f.label :phone, "Teléfono:" %>
+      <%= f.telephone_field :phone, class: 'form-control' %>
+
+      <%= f.submit "Editar", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

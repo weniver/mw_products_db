@@ -1,0 +1,18 @@
+<% provide(:title, @store.name) %>
+<div class='row'>
+  <aside class="col-md-4">
+    <section class="user_info">
+      <h3>
+        <%= @store.name %>:
+      </h3>
+      <hr>
+      <h1>Dirección: <%= @store.address.present? ? @store.address : "Sin dirección."%></h1>
+      <hr>
+      <h1>RFC: <%= @store.rfc.present? ? @store.rfc : "Sin RFC."%></h1>
+      <hr>
+      <h1>Teléfono: <%= @store.phone.present? ? @store.phone : "Sin teléfono."%></h1>
+      <hr>
+      <h1>email: <%= @store.email.present? ? @store.email : "Sin email."%></h1>
+    </section>
+  </aside>
+</div>

@@ -6,13 +6,8 @@ Rails.application.routes.draw do
   delete 'logout' => 'sessions#destroy'
   get    'telas_estampados' => 'patterns#index'
 
-  resources :patterns
-  resources :batches,                only: [:index, :destroy]
-  resources :fabrics
-  resources :users
-  resources :account_activations,    only: [:edit]
+  resources :patterns, :fabrics, :users, :products, :categories, :units, :stores
   resources :password_resets,        only: [:new, :create, :edit, :update]
-  resources :products
-  resources :categories
-  resources :units
+  resources :batches,                only: [:index, :destroy]
+  resources :account_activations,    only: [:edit]
 end
