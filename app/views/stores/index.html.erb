@@ -17,7 +17,7 @@
   <tbody>
   <% @stores.each do |store| %>
     <tr>
-      <td><%= store.name %></td>
+      <td><%= link_to store.name, store %></td>
       <td>100</td>
       <td>Perritos Blancos</td>
       <td>Tortas de Tamal</td>
