@@ -1,1 +1,11 @@
-#empty
+# no_batch:
+#   product_id: 1
+#   category_id: 1
+#   pattern_id: 1
+#   fabric_id: 1
+#   color_id: 1
+#   batch_id: nil
+#   colors:
+#     - hue: '1'
+#     - tone: '1'
+#     - darkness: '1'
