@@ -1,22 +1,23 @@
 <% provide(:title, 'Editar Productos') %>
-<h1>Editar Productos:</h1>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+<h1>Editar Producto:</h1>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(@unit) do |f| %>
       <%= render 'shared/error_messages_units' %>
 
-      <%= f.label :quantity, "Cantidad:" %>
-      <%= f.number_field :quantity, class: 'form-control' %>
-      <hr>
+      <%= f.hidden_field :quantity, value: '1' %>
 
     <div class="field">
-      <%= f.label :product_id, "Producto" %> <br/>
+
+      <%= f.label :product_id, "Producto" %> (Valor Original: <%= @unit.category.product.name.capitalize %>):<br/>
       <%= f.collection_select :product_id, @products.order(:name), :id, :name, include_blank: true, prompt: "Selecciona un producto" %>
     </div>
 
     <div class="field">
-      <%= f.label :category_id, "Categoria" %> <br/>
+      <%= f.label :category_id, "Categoria" %> (Valor Original: <%= @unit.category.name.capitalize %>):<br/>
       <%= f.grouped_collection_select :category_id, Product.order(:name), :categories, :name, :id, :name, include_blank: true, prompt: "Selecciona una categoria" %>
     </div>
     <hr>
@@ -26,7 +27,7 @@
       <%= f.collection_select(:pattern_id, Pattern.order(:name), :id, :name, prompt: "Selecciona un estampado")  %>
     <br>
     <hr>
-    <strong>Color:</strong>
+    <strong>Color</strong> (Valor Original: <%= @unit.color.real_color %>):
     <br><br>
     <div class="field">
       <%= f.fields_for :colors do |ff| %>
@@ -48,7 +49,7 @@
 
         <div class="field">
         <%= ff.label :tone, "Tono", class: 'control-label' %></br>
-        <div class='radio-inline'><%= ff.radio_button :tone, '0', checked: true  %> 0</div>
+        <div class='radio-inline'><%= ff.radio_button :tone, '0', checked: true %> 0</div>
         <div class='radio-inline'><%= ff.radio_button :tone, '1' %> 1</div>
         <div class='radio-inline'><%= ff.radio_button :tone, '2' %> 2</div>
         <div class='radio-inline'><%= ff.radio_button :tone, '3' %> 3</div>
@@ -75,13 +76,26 @@
         </div>
       <% end %>
     <hr>
-    <br>
     </div>
       <%= f.label :fabric_id, "Tela:" %>
       <%= f.collection_select(:fabric_id, Fabric.all, :id, :material_and_color, prompt: "Selecciona una tela") %>
     <hr>
 
-      <%= f.submit "Crear las Unidades", class: "btn btn-primary" %>
+    <% unless @unit.batch_id.nil? %>
+    <div class="field">
+      <div class="btn-group" data-toggle='buttons'>
+        <%= f.label :edit_all_batch, "Editar:" %>
+        <br>
+        <div class='btn btn-default'><%= f.radio_button :edit_all_batch, false %> Pieza</div>
+        <div class='btn btn-default'><%= f.radio_button :edit_all_batch, true %> Lote (<%= @unit.batch.units.count %> piezas)</div>
+        <br>
+        <br>
+      </div>
+    </div>
+    <% end %>
+    <div class="field">
+      <%= f.submit "Confirmar", class: "btn btn-primary" %>
+    </div>
     <% end %>
   </div>
 </div>

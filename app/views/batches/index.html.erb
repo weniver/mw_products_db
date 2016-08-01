@@ -1,0 +1,33 @@
+<h1>Todos tus Lotes</h1>
+<hr>
+
+<table id="products" class="table table-striped table-bordered" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Fecha de Producción</th>
+      <th>Piezas</th>
+      <th>Producto: Categoria</th>
+      <th>Estampado: Color</th>
+      <th>Tela</th>
+      <th><span class="glyphicon glyphicon-pencil"></span>|<span class="glyphicon glyphicon-trash"></span></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @batches.each do |batch| %>
+    <tr>
+      <td><%= batch.units.first.created_at.strftime('%v') %></td>
+      <td><%= batch.units.count %></td>
+      <td><%= batch.units.first.category.product.name %>: <%= batch.units.first.category.name %></td>
+      <td><%= batch.units.first.pattern.name %>: <%= batch.units.first.color.real_color %></td>
+      <td><%= batch.units.first.fabric.material %> <%= batch.units.first.fabric.color.capitalize %></td>>
+      <td><%= link_to edit_unit_path(batch.units.first) do%>
+       <span class="glyphicon glyphicon-pencil"></span>
+      <% end %>
+      |<%= link_to batch, method: :delete,
+                          data: { confirm: "Eliminar las #{batch.units.count} piezas de la Base de Datos" }  do %>
+        <span class="glyphicon glyphicon-trash"></span>
+      <% end %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
