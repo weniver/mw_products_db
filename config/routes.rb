@@ -10,4 +10,9 @@ Rails.application.routes.draw do
   resources :password_resets,        only: [:new, :create, :edit, :update]
   resources :batches,                only: [:index, :destroy]
   resources :account_activations,    only: [:edit]
+  resources :remissions do
+    collection do
+      put :sold
+    end
+  end
 end

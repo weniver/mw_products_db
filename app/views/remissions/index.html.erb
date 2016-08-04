@@ -1,0 +1,33 @@
+<% provide(:title, 'Remisiones') %>
+<h1>Todas las Remisiones:</h1>
+<hr>
+
+<table id="products" class="table table-striped table-bordered" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Fecha</th>
+      <th>Tienda</th>
+      <th>Piezas</th>
+      <th>Activa</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @remissions.each do |remission| %>
+    <tr>
+      <td><%= remission.created_at.strftime("%I-%G") %></td>
+      <td><%= remission.store.name %></td>
+      <td><%= remission.units.count %></td>
+      <td><%= remission.active_in_words %></td>
+      <td><%= link_to remission do%>
+            <span class="glyphicon glyphicon-edit"></span>
+          <% end %>
+      </span>
+         |<%= link_to remission, method: :delete,
+                                 data: { confirm: "Eliminar de la Base de Datos" }  do %>
+                              <span class="glyphicon glyphicon-trash"></span>
+                            <% end %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

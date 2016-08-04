@@ -1,5 +1,6 @@
 class Store < ActiveRecord::Base
   has_many :units
+  has_many :remissions, dependent: :destroy
 
   before_save :downcase_mail, :upcase_rfc
 
@@ -8,7 +9,8 @@ class Store < ActiveRecord::Base
 
   validates :name,  presence: true,
                     length: { maximum: 50 }
-  validates :email, length: { maximum: 255 },
+  validates :email, allow_blank: true,
+                    length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX }
   validates :rfc,   allow_blank: true,
                     format: { with: VALID_RFC_REGEX }
