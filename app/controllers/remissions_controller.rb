@@ -51,6 +51,7 @@ class RemissionsController < ApplicationController
   end
 
   def sold
+    Unit.where.not(id: params[:unit_ids]).update_all(sold: false)
     Unit.where(id: params[:unit_ids]).update_all(sold: true)
     redirect_to :back
   end

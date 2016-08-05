@@ -7,30 +7,28 @@
   <table id="products" class="table table-striped table-bordered" cellspacing="0" width="100%">
     <thead>
       <tr>
-        <th></th>
+        <th><span class="glyphicon glyphicon-check"></th>
+        <th>¿Vendido?</th>
         <th>Codigo</th>
         <th>Producto</th>
         <th>Categoria</th>
         <th>Estampado: color</th>
         <th>Tela</th>
-        <th>¿Vendido?</th>
       </tr>
     </thead>
     <tbody>
     <% @units.each do |unit| %>
       <tr>
-        <td>
-        <%= check_box_tag "unit_ids[]", unit.id %>
-        </td>
+        <td><%= check_box_tag "unit_ids[]", unit.id, unit.sold %></td>
+        <td><%= unit.sold_yes_or_no %><%= unit.sold_price %></td>
         <td><%= unit.product_code %></td>
         <td><%= unit.category.product.name %></td>
         <td><%= unit.category.name %></td>
         <td><%= unit.pattern.name %>: <%= unit.color.real_color %></td>
         <td><%= unit.fabric.material %> <%= unit.fabric.color.capitalize %></td>
-        <td><%= unit.sold_yes_or_no %><%= unit.sold_price %></td>
       </tr>
     <% end %>
     </tbody>
   </table>
-  <%= submit_tag "Vendidos" %>
+  <%= submit_tag "Actualizar Vendidos", class: 'btn btn-primary' %>
 <% end %>
