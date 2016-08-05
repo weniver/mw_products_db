@@ -15,7 +15,7 @@ class Unit < ActiveRecord::Base
   validates :fabric_id, presence: true
   validates :pattern_id, presence: true
   validate  :extra_validations
-  attr_accessor :product_id, :quantity, :colors, :edit_all_batch
+  attr_accessor :product_id, :quantity, :colors, :edit_all_batch, :into_remission
 
   def sold_yes_or_no
     return self.sold ? "Sí" : "No"
@@ -23,7 +23,7 @@ class Unit < ActiveRecord::Base
 
   def where_is_it
     id = self.store_id
-    return id.nil? ? "Bodega" : "#{Store.find_by(id: id)}"
+    return id.nil? ? "Bodega" : "#{Store.find_by(id: id).name}"
   end
 
   def sold_price

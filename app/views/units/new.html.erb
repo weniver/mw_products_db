@@ -12,12 +12,12 @@
 
     <div class="field">
       <%= f.label :product_id, "Producto" %> <br/>
-      <%= f.collection_select :product_id, @products.order(:name), :id, :name, include_blank: true, prompt: "Selecciona un producto" %>
+      <%= f.collection_select :product_id, @products.order(:name), :id, :name, prompt: "Selecciona un producto" %>
     </div>
 
     <div class="field">
       <%= f.label :category_id, "Categoria" %> <br/>
-      <%= f.grouped_collection_select :category_id, Product.order(:name), :categories, :name, :id, :name, include_blank: true, prompt: "Selecciona una categoria" %>
+      <%= f.grouped_collection_select :category_id, Product.order(:name), :categories, :name, :id, :name, prompt: "Selecciona una categoria" %>
     </div>
     <hr>
 
@@ -61,7 +61,7 @@
         </div>
 
         <div class="field">
-        <%= ff.label :darkness, "Oscuridad" %></br>
+        <%= ff.label :darkness, "Saturación" %></br>
         <div class='radio-inline'><%= ff.radio_button :darkness, '0', checked: true  %> 0</div>
         <div class='radio-inline'><%= ff.radio_button :darkness, '1' %> 1</div>
         <div class='radio-inline'><%= ff.radio_button :darkness, '2' %> 2</div>

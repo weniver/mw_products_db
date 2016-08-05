@@ -120,3 +120,15 @@ end
                activated_at: Time.zone.now,
                brands_attributes: [name: brand])
 end
+10.times do |n|
+   name = Faker::Pokemon.name
+   address = Faker::Address.city + ', ' + Faker::Address.street_name+ ', ' + Faker::Address.street_address+ ', '
+   rfc = 'VECJ880326XXX'
+   phone = Faker::PhoneNumber.cell_phone
+   email = Faker::Internet.email
+   Store.create!(name: name,
+                 address: address,
+                 rfc: rfc,
+                 phone: phone,
+                 email: email)
+end
