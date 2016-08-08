@@ -14,5 +14,8 @@ Rails.application.routes.draw do
     collection do
       put :sold
     end
+    member do
+      get :download
+    end
   end
 end

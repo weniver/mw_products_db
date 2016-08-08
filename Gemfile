@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 
 gem 'rails',                   '4.2.6'
+gem 'rubyzip',                 '~> 1.1.0'
+gem 'axlsx',                   '2.1.0.pre'
+gem 'axlsx_rails'
 gem 'bcrypt',                  '3.1.7'
 gem 'faker',                   '~> 1.6', '>= 1.6.5'
 gem 'carrierwave',             '0.10.0'

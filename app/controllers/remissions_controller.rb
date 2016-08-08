@@ -56,6 +56,18 @@ class RemissionsController < ApplicationController
     redirect_to :back
   end
 
+  def download
+    @remission = Remission.find(params[:id])
+    @units = @remission.units
+    name_of_file="R-#{@remission.id.to_s}_#{@remission.store.name}_#{@remission.created_at.strftime("%H-%I-%G")}"
+    respond_to do |format|
+      format.xlsx {
+        response.headers['Content-Disposition'] = "attachment; filename=#{name_of_file}.xlsx"
+      }
+
+    end
+  end
+
   private
 
     def remission_params

@@ -25,9 +25,12 @@ class Unit < ActiveRecord::Base
     id = self.store_id
     return id.nil? ? "Bodega" : "#{Store.find_by(id: id).name}"
   end
+  def real_price
+    (self.price_modifier * self.category.price).round(2)
+  end
 
   def sold_price
-    income = self.price_modifier * self.category.price
+    income = self.real_price
     return self.sold ? ": #{income.round(2)}" : ""
   end
 
