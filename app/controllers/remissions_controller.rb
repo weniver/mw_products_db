@@ -71,7 +71,8 @@ class RemissionsController < ApplicationController
   private
 
     def remission_params
-      params.require(:remission).permit( :store_id )
+      params.require(:remission).permit( :store_id,
+                                         :price_modifier )
     end
 
     # Before filters

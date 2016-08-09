@@ -94,7 +94,6 @@ fabrics = Fabric.ids
   color_id =  colors.sample
   pattern_id = patterns.sample
   product_id = products.sample
-  price_modifier = rand(1.0..2.0)
   sold = Faker::Boolean.boolean
   products.each { |product| product.categories.first.units.create!(quantity: 4,
                                                                    colors: '123',
@@ -102,7 +101,6 @@ fabrics = Fabric.ids
                                                                    fabric_id: fabric_id,
                                                                    color_id: color_id,
                                                                    pattern_id: pattern_id,
-                                                                   price_modifier: price_modifier,
                                                                    sold: sold) }
 
 end

@@ -8,6 +8,7 @@ class Store < ActiveRecord::Base
   VALID_RFC_REGEX = /\A[A-ZÑ&]{3,4}[0-9]{2}[0-1][0-9][0-3][0-9]([A-Z0-9]{3})?\z/i
 
   validates :name,  presence: true,
+                    uniqueness: true,
                     length: { maximum: 50 }
   validates :email, allow_blank: true,
                     length: { maximum: 255 },

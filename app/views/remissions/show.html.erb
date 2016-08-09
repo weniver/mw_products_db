@@ -1,7 +1,8 @@
-<% provide(:title, ("#{@remission.store.name}: Remisión #{@remission.created_at.strftime("%I-%G")}")) %>
-<h1>REMISIÓN: <%= @remission.store.name.capitalize %>.</h1>
+<% provide(:title, ("#{@remission.store.name}: Remisión #{@remission.id}")) %>
+<h1 class="remission">REMISIÓN <%= @remission.id %>: <%= @remission.store.name.capitalize %></h1>
+<h3 class="remission"><%=@remission.created_at.strftime("%H-%I-%G")%></h3>
 <hr>
-<h2><%=@remission.created_at.strftime("%I-%G")%></h2>
+<h2><%= "#{@remission.price_modifier}% de Descuento" %></h2>
 <h3><%= link_to '<i class="glyphicon glyphicon-download">Descargar</i>'.html_safe, download_remission_path(@remission, format: :xlsx) %></h3>
 
 <%= form_tag sold_remissions_path, method: :put do %>

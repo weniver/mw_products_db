@@ -26,12 +26,18 @@ class Unit < ActiveRecord::Base
     return id.nil? ? "Bodega" : "#{Store.find_by(id: id).name}"
   end
   def real_price
-    (self.price_modifier * self.category.price).round(2)
+    unless self.remission_id.nil?
+      percentage_of_price_multiplier= (100 - self.remission.price_modifier)/100.0
+      unit_real_price = (percentage_of_price_multiplier * self.category.price).round(2)
+    else
+      self.category.price
+    end
   end
 
   def sold_price
+
     income = self.real_price
-    return self.sold ? ": #{income.round(2)}" : ""
+    return self.sold ? ": #{income}" : ""
   end
 
   def create_unit_code

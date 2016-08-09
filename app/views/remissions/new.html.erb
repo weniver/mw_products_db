@@ -10,6 +10,11 @@
         <%= f.label :store_id, "Producto" %> <br/>
         <%= f.collection_select :store_id, @stores.order(:name), :id, :name, prompt: "Selecciona una Tienda" %>
       </div>
+      <div class="field">
+        <%= f.label :price_modifier, "Descuento al Precio Base(%)" %> <br/>
+        <%= f.number_field :price_modifier, class: 'form-control'%>
+      </div>
+
         <table id="remissions" class="table table-striped table-bordered" cellspacing="0" width="100%">
           <thead>
             <tr>
