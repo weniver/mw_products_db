@@ -30,7 +30,8 @@
               <% unless unit.sold %>
                 <tr>
                   <td>
-                    <%= check_box_tag "unit_ids[]", unit.id %>
+                    <%= check_box_tag "unit_ids[]", unit.id,
+                     (@selected_units.nil? ? false : @selected_units.include?(unit)) %>
                   </td>
                   <td><%= unit.category.product.name %></td>
                   <td><%= unit.category.name %></td>

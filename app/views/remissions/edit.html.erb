@@ -1,5 +1,5 @@
-<% provide(:title, 'Nueva Remisión') %>
-<h1>Nueva Remisión:</h1>
+<% provide(:title, 'Editar Remisión') %>
+<h1>Editar Remisión:</h1>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
@@ -25,7 +25,7 @@
               <% unless unit.sold %>
                 <tr>
                   <td>
-                    <%= check_box_tag "unit_ids[]", unit.id %>
+                    <%= check_box_tag "unit_ids[]", unit.id, unit.remission_id == @remission.id %>
                   </td>
                   <td><%= unit.category.product.name %></td>
                   <td><%= unit.category.name %></td>
@@ -37,7 +37,7 @@
           </tbody>
         </table>
         <br>
-        <%= f.submit "Generar Remisión", class: "btn btn-primary" %>
+        <%= f.submit "Editar", class: "btn btn-primary" %>
       <% end %>
   </div>
 </div>

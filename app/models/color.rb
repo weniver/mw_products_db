@@ -1,4 +1,5 @@
 class Color < ActiveRecord::Base
+  include ColorsHelper
   has_many :units
 
   before_validation :form_real_color
@@ -17,5 +18,20 @@ class Color < ActiveRecord::Base
     t = self.tone
     d = self.darkness
     self.real_color = h+t+d
+  end
+
+  def color_in_words
+    hue = self.hue
+    tone = self.tone
+    dark = self.darkness
+    h_word = hue_word(hue)
+    t_word = tone_word(tone)
+    d_word = darkness_word(tone)
+    return color_words = [h_word, t_word, d_word].join(" ")
+  end
+
+  def hue_for_description
+    hue = self.hue
+    return hue_word(hue)
   end
 end

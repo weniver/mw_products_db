@@ -26,7 +26,7 @@
       <%= f.collection_select(:pattern_id, Pattern.order(:name), :id, :name, prompt: "Selecciona un estampado")  %>
     <br>
     <hr>
-    <strong>Color:</strong>
+    <strong>Color:</strong><a id="popover" class="btn" rel="popover" data-content="" title="Table de Colores"><span class="glyphicon glyphicon-info-sign"></a>
     <br><br>
     <div class="field">
       <%= f.fields_for :colors do |ff| %>

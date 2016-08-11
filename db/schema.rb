@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160809170320) do
+ActiveRecord::Schema.define(version: 20160811232514) do
 
   create_table "batches", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 20160809170320) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.integer  "price_modifier", default: 0
+    t.decimal  "profit"
   end
 
   add_index "remissions", ["store_id"], name: "index_remissions_on_store_id"
@@ -114,6 +115,8 @@ ActiveRecord::Schema.define(version: 20160809170320) do
     t.integer  "color_id"
     t.integer  "pattern_id"
     t.integer  "batch_id"
+    t.decimal  "profit"
+    t.datetime "date_sold"
   end
 
   add_index "units", ["batch_id"], name: "index_units_on_batch_id"

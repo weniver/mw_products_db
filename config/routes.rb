@@ -11,11 +11,11 @@ Rails.application.routes.draw do
   resources :batches,                only: [:index, :destroy]
   resources :account_activations,    only: [:edit]
   resources :remissions do
-    collection do
-      put :sold
-    end
     member do
       get :download
+      post :end
+      post :activate
+      put :sold
     end
   end
 end

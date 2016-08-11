@@ -17,27 +17,43 @@ class Unit < ActiveRecord::Base
   validate  :extra_validations
   attr_accessor :product_id, :quantity, :colors, :edit_all_batch, :into_remission
 
-  def sold_yes_or_no
-    return self.sold ? "Sí" : "No"
+  def pattern_color_in_words
+    return self.color.color_in_words
+  end
+
+  def description
+    pro = self.category.product.name
+    cat = self.category.name
+    pat = self.pattern.name
+    hue = self.color.hue_for_description
+    fab = self.fabric.material_and_color
+    desc = "#{pro} #{cat} #{pat} #{hue}/#{fab}."
+    return desc.upcase
   end
 
   def where_is_it
     id = self.store_id
     return id.nil? ? "Bodega" : "#{Store.find_by(id: id).name}"
   end
+
   def real_price
     unless self.remission_id.nil?
       percentage_of_price_multiplier= (100 - self.remission.price_modifier)/100.0
-      unit_real_price = (percentage_of_price_multiplier * self.category.price).round(2)
+      unit_real_price = (percentage_of_price_multiplier * self.category.price).round(2).to_d
     else
-      self.category.price
+      self.category.price.to_d
     end
   end
 
-  def sold_price
+  #sets sold price or n/a, for tables
+  def sold_price_or_na
+    return self.sold ? "$ #{self.profit}": "n/a"
+  end
 
-    income = self.real_price
-    return self.sold ? ": #{income}" : ""
+  #updates product if sold
+  def sold_data
+    profit = self.real_price
+    self.update_columns({sold: true, profit: profit, date_sold: Time.now})
   end
 
   def create_unit_code

@@ -8,6 +8,9 @@
   box-sizing:         border-box;
 }
 /* universal */
+.popover{
+    max-width: 100%; /* Max Width of the popover (depending on the container!) */
+}
 
 body {
   padding-top: 60px;
@@ -319,7 +322,6 @@ input {
       -moz-border-radius: 6px 0 6px 6px;
       border-radius: 6px 0 6px 6px;
   }
-
 // Index
 .category_index_link {
   list-style-type: none;
