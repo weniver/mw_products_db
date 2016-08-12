@@ -33,8 +33,11 @@ class RemissionsController < ApplicationController
     @remission = Remission.find(params[:id])
     @units = @remission.units.all
     #Returns the products to Storage as they did not change location.
-    @units.update_all({store_id: nil,
-                       remission_id: nil})
+    unless @units.nil?
+      @units.update_all({store_id: nil,
+                         remission_id: nil})
+    end
+
     @remission.destroy
     flash[:success] = "Remisión Borrada. Las piezas se regresaron a la bodega."
     redirect_to remissions_url
@@ -43,6 +46,7 @@ class RemissionsController < ApplicationController
   def show
     @remission = Remission.find(params[:id])
     @units = @remission.units
+    @devolutions = @remission.devolutions
   end
 
   def edit
@@ -93,7 +97,10 @@ class RemissionsController < ApplicationController
     #desactivate remission and gets profit
     profit = sold_units.sum(:profit)
     @remission.update_attributes(active: false, profit: profit)
-    #sends not sold units to storage and takes them out of remission
+    #sends not sold units to storage,
+    #saves info in devolutions and
+    #takes them out of remission
+    @remission.add_devolutions
     not_sold_units.update_all({store_id: nil,
                                 remission_id: nil})
     redirect_to @remission
@@ -103,6 +110,8 @@ class RemissionsController < ApplicationController
     @remission = Remission.find(params[:id])
     @units = @remission.units
     @remission.update_attributes(active: true)
+    #adds devolutions from storage to remission/store
+    @remission.restore_devolutions
     redirect_to @remission
   end
 
@@ -118,7 +127,11 @@ class RemissionsController < ApplicationController
     def correct_brand
       @brand = current_brand
       @remission = Remission.find(params[:id])
-      @remission_brand = @remission.units.first.category.product.brand
-      redirect_to(root_url) unless @brand == @remission_brand
+      if @remission.units.any?
+        @remission_brand = @remission.units.first.category.product.brand
+        redirect_to(root_url) unless @brand == @remission_brand
+      else
+        return
+      end
     end
 end

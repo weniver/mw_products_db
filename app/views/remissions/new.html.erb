@@ -43,7 +43,8 @@
           </tbody>
         </table>
         <br>
-        <%= f.submit "Generar Remisión", class: "btn btn-primary" %>
+        <h5>NOTA: Antes de dar click en "Generar Remisión" borrar el campo de busqueda.</h5>
+        <%= f.submit "Generar Remisión", data: { confirm: "Antes de generar la remisión recuerda BORRAR el campo de búsqueda." }, class: "btn btn-primary"  %>
       <% end %>
   </div>
 </div>

@@ -22,11 +22,12 @@
       <td><%= link_to remission do%>
             <span class="glyphicon glyphicon-edit"></span>
           <% end %>
-      </span>
+        <% unless remission.active %>
          |<%= link_to remission, method: :delete,
-                                 data: { confirm: "Eliminar de la Base de Datos" }  do %>
+                                 data: { confirm: "Eliminar de la Base de Datos. Todas las piezas de regresaran a la bodega esten marcadas como vendidas o no." }  do %>
                               <span class="glyphicon glyphicon-trash"></span>
-                            <% end %></td>
+                            <% end %>
+        <% end %></td>
     </tr>
   <% end %>
   </tbody>
