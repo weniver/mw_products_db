@@ -14,22 +14,24 @@ end_remission_path(@remission), method: :post)).html_safe
 %></h3>
 
 <%= form_tag sold_remission_path(@remission), method: :put do %>
-  <table id="products" class="table table-striped table-bordered" cellspacing="0" width="100%">
+  <table id="products" class="table table-striped table-bordered center-table" cellspacing="0" width="100%">
     <thead>
       <tr>
-        <th><span class="glyphicon glyphicon-check"></th>
-        <th>Preció de Venta</th>
-        <th>Codigo</th>
-        <th>Producto</th>
-        <th>Categoria</th>
-        <th>Estampado: color</th>
-        <th>Tela</th>
+        <th class="center-table"><span class="glyphicon glyphicon-repeat"></th>
+        <th class="center-table"><span class="glyphicon glyphicon-usd"></th>
+        <th class="center-table">Preció de Venta</th>
+        <th class="center-table">Codigo</th>
+        <th class="center-table">Producto</th>
+        <th class="center-table">Categoria</th>
+        <th class="center-table">Estampado: color</th>
+        <th class="center-table">Tela</th>
       </tr>
     </thead>
     <tbody>
     <% @units.each do |unit| %>
       <tr>
-        <td><%= check_box_tag "unit_ids[]", unit.id, unit.sold %></td>
+        <td><%= unit.sold ? '' : (check_box_tag "return_ids[]", unit.id) %></td>
+        <td><%= check_box_tag "unit_ids[]", unit.id, unit.sold%></td>
         <td><%= unit.sold_price_or_na %></td>
         <td><%= unit.product_code %></td>
         <td><%= unit.category.product.name %></td>
@@ -40,5 +42,24 @@ end_remission_path(@remission), method: :post)).html_safe
     <% end %>
     </tbody>
   </table>
-  <%= submit_tag "Actualizar Vendidos", class: 'btn btn-primary' %>
+  <%= submit_tag "Actualizar", class: 'btn btn-primary' %>
+<% end %>
+<% unless @devolutions.nil? %>
+    <h3>Devoluciones:</h3>
+    <table id="products" class="table table-striped table-bordered" cellspacing="0" width="100%">
+      <thead>
+        <tr>
+          <th>Codigo</th>
+          <th>Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @devolutions.each do |devolution| %>
+        <tr>
+          <td><%= devolution.product_code %></td>
+          <td><%= devolution.description %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
 <% end %>

@@ -69,11 +69,17 @@ class RemissionsController < ApplicationController
 
   def sold
     @remission = Remission.find(params[:id])
+    #to change deselected items sold
     @remission.units.where.not(id: params[:unit_ids]).update_all(sold: false, profit: nil, date_sold: nil)
+    #change selected items sold
     @sold_units = @remission.units.where(id: params[:unit_ids])
+    #adds date of the unit sold
     @sold_units.each do |sold_unit|
       sold_unit.sold_data
     end
+    #for the returned checkbox
+    returned_units = @remission.units.where(id: params[:return_ids]).all
+    @remission.add_devolutions(returned_units)
     redirect_to :back
   end
 
@@ -100,9 +106,8 @@ class RemissionsController < ApplicationController
     #sends not sold units to storage,
     #saves info in devolutions and
     #takes them out of remission
-    @remission.add_devolutions
-    not_sold_units.update_all({store_id: nil,
-                                remission_id: nil})
+    not_sold = @remission.units.where(sold: false)
+    @remission.add_devolutions(not_sold)
     redirect_to @remission
   end
 

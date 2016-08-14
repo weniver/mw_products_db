@@ -13,14 +13,15 @@ class Remission < ActiveRecord::Base
     return self.active ? "Sí" : "No"
   end
 
-  def add_devolutions
-    not_sold = self.units.where(sold: false)
-    not_sold.each do |unit|
+  def add_devolutions(units)
+    units.each do |unit|
       description = unit.description
       product_code = unit.product_code
       self.devolutions.create!( description: description,
                                 product_code: product_code )
     end
+    units.update_all({store_id: nil,
+                      remission_id: nil})
   end
 
   def restore_devolutions

@@ -41,6 +41,7 @@ class StoresController < ApplicationController
 
   def show
     @store = Store.find(params[:id])
+    @remissions = @store.remissions
   end
 end
 

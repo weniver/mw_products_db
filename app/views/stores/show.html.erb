@@ -1,18 +1,56 @@
 <% provide(:title, @store.name) %>
 <div class='row'>
-  <aside class="col-md-4">
+  <aside class="col-md-3">
     <section class="user_info">
       <h3>
         <%= @store.name %>:
       </h3>
       <hr>
-      <h1>Dirección: <%= @store.address.present? ? @store.address : "Sin dirección."%></h1>
+      <h5>Dirección: <%= @store.address.present? ? @store.address : "Sin dirección."%></h5>
       <hr>
-      <h1>RFC: <%= @store.rfc.present? ? @store.rfc : "Sin RFC."%></h1>
+      <h5>RFC: <%= @store.rfc.present? ? @store.rfc : "Sin RFC."%></h5>
       <hr>
-      <h1>Teléfono: <%= @store.phone.present? ? @store.phone : "Sin teléfono."%></h1>
+      <h5>Teléfono: <%= @store.phone.present? ? @store.phone : "Sin teléfono."%></h5>
       <hr>
-      <h1>email: <%= @store.email.present? ? @store.email : "Sin email."%></h1>
+      <h5>email: <%= @store.email.present? ? @store.email : "Sin email."%></h5>
     </section>
   </aside>
-</div>
+  <% if @remissions.any? %>
+    <div class="col-md-8">
+      <table id="products" class="table table-striped table-bordered" cellspacing="0" width=auto>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Fecha</th>
+            <th>Piezas</th>
+            <th>Activa</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @remissions.each do |remission| %>
+          <tr>
+            <td><%= remission.id %></td>
+            <td><%= remission.created_at.strftime("%H-%I-%G") %></td>
+            <td><%= remission.units.count %></td>
+            <td><%= remission.active_in_words %></td>
+            <td><%= link_to remission do%>
+                  <span class="glyphicon glyphicon-edit"></span>
+                <% end %>
+              <% unless remission.active %>
+               |<%= link_to remission, method: :delete,
+                                       data: { confirm: "Eliminar de la Base de Datos. Todas las piezas de regresaran a la bodega esten marcadas como vendidas o no." }  do %>
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                  <% end %>
+              <% end %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <div class="col-md-8">
+      <h1 center>Esta Tienda NO Tiene Remisiones.</h1>
+    </div>
+  <% end %>
+  </div>

@@ -18,4 +18,9 @@ Rails.application.routes.draw do
       put :sold
     end
   end
+  resources :stores do
+    member do
+      get :inventory
+    end
+  end
 end
