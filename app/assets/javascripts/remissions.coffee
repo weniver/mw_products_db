@@ -6,3 +6,8 @@ jQuery ->
   $('#remissions').dataTable( {
         "lengthMenu": [[-1], ["Todas las Piezas"]]
     } )
+
+jQuery ->
+  $('#remission-show').dataTable( {
+        "lengthMenu": [[-1], ["Todas las Piezas"]]
+    } )
