@@ -48,7 +48,8 @@ class StoresController < ApplicationController
   def download
     @store = Store.find(params[:id])
     @remissions = @store.remissions.where(active: true)
-    @remission = @remissions.first
+    @ids = @remissions.ids.join(', ')
+    @num_units = @remissions.joins(:units).count
 
     name_of_file="I-#{@store.name}_#{Time.now.strftime("%H-%I-%G")}"
     respond_to do |format|
@@ -58,12 +59,6 @@ class StoresController < ApplicationController
     end
   end
 
-
-# @remissions = @store.remissions
-# @remission = @remissions.first
-# @active_remissions = @remissions.where(active: true)
-# @ids = @active_remissions.ids.join(', ')
-# @all_units = @active_remissions.joins(:units)
 private
 
   def store_params
