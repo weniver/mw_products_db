@@ -42,9 +42,28 @@ class StoresController < ApplicationController
   def show
     @store = Store.find(params[:id])
     @remissions = @store.remissions
+    @active_remissions = @remissions.where(active: true)
   end
-end
 
+  def download
+    @store = Store.find(params[:id])
+    @remissions = @store.remissions.where(active: true)
+    @remission = @remissions.first
+
+    name_of_file="I-#{@store.name}_#{Time.now.strftime("%H-%I-%G")}"
+    respond_to do |format|
+      format.xlsx {
+        response.headers['Content-Disposition'] = "attachment; filename=#{name_of_file}.xlsx"
+      }
+    end
+  end
+
+
+# @remissions = @store.remissions
+# @remission = @remissions.first
+# @active_remissions = @remissions.where(active: true)
+# @ids = @active_remissions.ids.join(', ')
+# @all_units = @active_remissions.joins(:units)
 private
 
   def store_params
@@ -54,3 +73,4 @@ private
                                   :phone,
                                   :email)
   end
+end

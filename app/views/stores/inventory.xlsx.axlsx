@@ -1,0 +1,23 @@
+wb = xlsx_package.workbook
+title = wb.styles.add_style( border: Axlsx::STYLE_THIN_BORDER,
+                             b: true)
+top = wb.styles.add_style(   sz: 16,
+                             b: true)
+total = wb.styles.add_style( border: Axlsx::STYLE_THIN_BORDER,
+                             b: true,
+                             bg_color: '999999')
+
+wb.add_worksheet(name: "Inventario") do |sheet|
+  sheet.add_row ['Inventario'], style: top
+  sheet.add_row [Time.now.strftime("%H-%I-%G"),'Remisiones: ' + @ids, 'Tienda: '+ @remission.store.name], style: top
+  sheet.add_row
+  sheet.add_row ['REMISION','CLAVE', 'PRODUCTO', 'CATEGORIA', 'ESTAMPADO', 'COLOR', 'PRECIO'], style: title
+
+  @all_units.each do |unit|
+    sheet.add_row [unit.remission.id, unit.product_code, unit.category.product.name, unit.category.name, unit.pattern.name, unit.color.real_color, unit.real_price], style: Axlsx::STYLE_THIN_BORDER
+  end
+
+  sheet.add_row ['','','','','','SUBTOTAL', "=SUM(G5:G#{@all_units.count+4})"], style: [nil,nil,nil,nil,nil,total,total]
+  sheet.add_row ['','','','','','IVA', "=ROUND(SUM(G5:G#{@all_units.count+4})*0.16,2)"], style: [nil,nil,nil,nil,nil,Axlsx::STYLE_THIN_BORDER,Axlsx::STYLE_THIN_BORDER]
+  sheet.add_row ['','','','','','TOTAL', "=ROUND(SUM(G5:G#{@all_units.count+4})*0.16+(SUM(G5:G#{@all_units.count+4})),2)"], style: [nil,nil,nil,nil,nil,total,total]
+end

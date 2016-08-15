@@ -1,0 +1,30 @@
+<hr class='double'>
+<h1>Inventario:</h1>
+<h3><%= (link_to '<i class="glyphicon glyphicon-download">descargar</i>'.html_safe,
+download_store_path(@store, format: :xlsx)) %></h3>
+<table id="inventory" class="table table-striped table-bordered" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Remisión</th>
+      <th>Codigo</th>
+      <th>Producto</th>
+      <th>Categoria</th>
+      <th>Estampado: color</th>
+      <th>Tela</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @active_remissions.each do |active_remission|
+    active_remission.units.each do |unit| %>
+      <tr>
+        <td>#<%= unit.remission.id %></td>
+        <td><%= unit.product_code %></td>
+        <td><%= unit.category.product.name %></td>
+        <td><%= unit.category.name %></td>
+        <td><%= unit.pattern.name %>: <%= unit.color.real_color %></td>
+        <td><%= unit.fabric.material %> <%= unit.fabric.color.capitalize %></td>
+      </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>

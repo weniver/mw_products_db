@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   end
   resources :stores do
     member do
-      get :inventory
+      get :download
     end
   end
 end
