@@ -85,7 +85,7 @@ class RemissionsController < ApplicationController
 
   def download
     @remission = Remission.find(params[:id])
-    @units = @remission.units
+    @units = @remission.units.order(:product_code)
     name_of_file="R-#{@remission.id.to_s}_#{@remission.store.name}_#{@remission.created_at.strftime("%H-%I-%G")}"
     respond_to do |format|
       format.xlsx {

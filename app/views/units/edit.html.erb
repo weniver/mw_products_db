@@ -1,6 +1,4 @@
 <% provide(:title, 'Editar Productos') %>
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 <h1>Editar Producto:</h1>
 
 <div class="row">
@@ -12,13 +10,13 @@
 
     <div class="field">
 
-      <%= f.label :product_id, "Producto" %> (Valor Original: <%= @unit.category.product.name.capitalize %>):<br/>
-      <%= f.collection_select :product_id, @products.order(:name), :id, :name, include_blank: true, prompt: "Selecciona un producto" %>
+      <%= f.label :product_id, "Producto:" %><br/>
+      <%= f.collection_select :product_id, @products.order(:name), :id, :name, {selected: @unit.category.product.id} %>
     </div>
 
     <div class="field">
-      <%= f.label :category_id, "Categoria" %> (Valor Original: <%= @unit.category.name.capitalize %>):<br/>
-      <%= f.grouped_collection_select :category_id, Product.order(:name), :categories, :name, :id, :name, include_blank: true, prompt: "Selecciona una categoria" %>
+      <%= f.label :category_id, "Categoria:" %> <br/>
+      <%= f.grouped_collection_select :category_id, Product.order(:name), :categories, :name, :id, :name, {selected: @unit.category.id} %>
     </div>
     <hr>
 
@@ -27,53 +25,56 @@
       <%= f.collection_select(:pattern_id, Pattern.order(:name), :id, :name, prompt: "Selecciona un estampado")  %>
     <br>
     <hr>
-    <strong>Color</strong> (Valor Original: <%= @unit.color.real_color %>):
+    <strong>Color:</strong><a id="popover" class="btn" rel="popover" data-content="" title="Tabla de Colores"><span class="glyphicon glyphicon-info-sign"></a>
     <br><br>
     <div class="field">
       <%= f.fields_for :colors do |ff| %>
         <div class="field">
         <%= ff.label :hue, "Matiz", class: 'control-label' %></br>
-        <div class='radio-inline'><%= ff.radio_button :hue, '0', checked: true %> 0</div>
-        <div class='radio-inline'><%= ff.radio_button :hue, '1' %> 1</div>
-        <div class='radio-inline'><%= ff.radio_button :hue, '2' %> 2</div>
-        <div class='radio-inline'><%= ff.radio_button :hue, '3' %> 3</div>
-        <div class='radio-inline'><%= ff.radio_button :hue, '4' %> 4</div>
-        <div class='radio-inline'><%= ff.radio_button :hue, '5' %> 5</div>
-        <div class='radio-inline'><%= ff.radio_button :hue, '6' %> 6</div>
-        <div class='radio-inline'><%= ff.radio_button :hue, '7' %> 7</div>
-        <div class='radio-inline'><%= ff.radio_button :hue, '8' %> 8</div>
-        <div class='radio-inline'><%= ff.radio_button :hue, '9' %> 9</div>
-        <div class='radio-inline'><%= ff.radio_button :hue, 'n' %> n</div>
-        <div class='radio-inline'><%= ff.radio_button :hue, 's' %> s</div>
-        </div>
+        <div class='radio-inline'><%= ff.radio_button :hue, 'x', checked: (@unit.color.hue == 'x') %> n/a</div>
+        <div class='radio-inline'><%= ff.radio_button :hue, '0', checked: (@unit.color.hue == '0') %> 0</div>
+        <div class='radio-inline'><%= ff.radio_button :hue, '1', checked: (@unit.color.hue == '1') %> 1</div>
+        <div class='radio-inline'><%= ff.radio_button :hue, '2', checked: (@unit.color.hue == '2') %> 2</div>
+        <div class='radio-inline'><%= ff.radio_button :hue, '3', checked: (@unit.color.hue == '3') %> 3</div>
+        <div class='radio-inline'><%= ff.radio_button :hue, '4', checked: (@unit.color.hue == '4') %> 4</div>
+        <div class='radio-inline'><%= ff.radio_button :hue, '5', checked: (@unit.color.hue == '5') %> 5</div>
+        <div class='radio-inline'><%= ff.radio_button :hue, '6', checked: (@unit.color.hue == '6') %> 6</div>
+        <div class='radio-inline'><%= ff.radio_button :hue, '7', checked: (@unit.color.hue == '7') %> 7</div>
+        <div class='radio-inline'><%= ff.radio_button :hue, '8', checked: (@unit.color.hue == '8') %> 8</div>
+        <div class='radio-inline'><%= ff.radio_button :hue, '9', checked: (@unit.color.hue == '9') %> 9</div>
+        <div class='radio-inline'><%= ff.radio_button :hue, 'n', checked: (@unit.color.hue == 'n') %> n</div>
+        <div class='radio-inline'><%= ff.radio_button :hue, 's', checked: (@unit.color.hue == 's') %> s</div>
+    </div>
 
-        <div class="field">
-        <%= ff.label :tone, "Tono", class: 'control-label' %></br>
-        <div class='radio-inline'><%= ff.radio_button :tone, '0', checked: true %> 0</div>
-        <div class='radio-inline'><%= ff.radio_button :tone, '1' %> 1</div>
-        <div class='radio-inline'><%= ff.radio_button :tone, '2' %> 2</div>
-        <div class='radio-inline'><%= ff.radio_button :tone, '3' %> 3</div>
-        <div class='radio-inline'><%= ff.radio_button :tone, '4' %> 4</div>
-        <div class='radio-inline'><%= ff.radio_button :tone, '5' %> 5</div>
-        <div class='radio-inline'><%= ff.radio_button :tone, '6' %> 6</div>
-        <div class='radio-inline'><%= ff.radio_button :tone, '7' %> 7</div>
-        <div class='radio-inline'><%= ff.radio_button :tone, '8' %> 8</div>
-        <div class='radio-inline'><%= ff.radio_button :tone, '9' %> 9</div>
-        </div>
+    <div class="field">
+      <%= ff.label :tone, "Tono", class: 'control-label' %></br>
+        <div class='radio-inline'><%= ff.radio_button :tone, 'x', checked: (@unit.color.hue == 'x') %> n/a</div>
+        <div class='radio-inline'><%= ff.radio_button :tone, '0', checked: (@unit.color.tone == '0') %> 0</div>
+        <div class='radio-inline'><%= ff.radio_button :tone, '1', checked: (@unit.color.tone == '1') %> 1</div>
+        <div class='radio-inline'><%= ff.radio_button :tone, '2', checked: (@unit.color.tone == '2') %> 2</div>
+        <div class='radio-inline'><%= ff.radio_button :tone, '3', checked: (@unit.color.tone == '3') %> 3</div>
+        <div class='radio-inline'><%= ff.radio_button :tone, '4', checked: (@unit.color.tone == '4') %> 4</div>
+        <div class='radio-inline'><%= ff.radio_button :tone, '5', checked: (@unit.color.tone == '5') %> 5</div>
+        <div class='radio-inline'><%= ff.radio_button :tone, '6', checked: (@unit.color.tone == '6') %> 6</div>
+        <div class='radio-inline'><%= ff.radio_button :tone, '7', checked: (@unit.color.tone == '7') %> 7</div>
+        <div class='radio-inline'><%= ff.radio_button :tone, '8', checked: (@unit.color.tone == '8') %> 8</div>
+        <div class='radio-inline'><%= ff.radio_button :tone, '9', checked: (@unit.color.tone == '9') %> 9</div>
+    </div>
 
-        <div class="field">
-        <%= ff.label :darkness, "Oscuridad" %></br>
-        <div class='radio-inline'><%= ff.radio_button :darkness, '0', checked: true  %> 0</div>
-        <div class='radio-inline'><%= ff.radio_button :darkness, '1' %> 1</div>
-        <div class='radio-inline'><%= ff.radio_button :darkness, '2' %> 2</div>
-        <div class='radio-inline'><%= ff.radio_button :darkness, '3' %> 3</div>
-        <div class='radio-inline'><%= ff.radio_button :darkness, '4' %> 4</div>
-        <div class='radio-inline'><%= ff.radio_button :darkness, '5' %> 5</div>
-        <div class='radio-inline'><%= ff.radio_button :darkness, '6' %> 6</div>
-        <div class='radio-inline'><%= ff.radio_button :darkness, '7' %> 7</div>
-        <div class='radio-inline'><%= ff.radio_button :darkness, '8' %> 8</div>
-        <div class='radio-inline'><%= ff.radio_button :darkness, '9' %> 9</div>
-        </div>
+    <div class="field">
+      <%= ff.label :darkness, "Oscuridad" %></br>
+        <div class='radio-inline'><%= ff.radio_button :darkness, 'x', checked: (@unit.color.hue == 'x') %> n/a</div>
+        <div class='radio-inline'><%= ff.radio_button :darkness, '0', checked: (@unit.color.darkness == '0') %> 0</div>
+        <div class='radio-inline'><%= ff.radio_button :darkness, '1', checked: (@unit.color.darkness == '1') %> 1</div>
+        <div class='radio-inline'><%= ff.radio_button :darkness, '2', checked: (@unit.color.darkness == '2') %> 2</div>
+        <div class='radio-inline'><%= ff.radio_button :darkness, '3', checked: (@unit.color.darkness == '3') %> 3</div>
+        <div class='radio-inline'><%= ff.radio_button :darkness, '4', checked: (@unit.color.darkness == '4') %> 4</div>
+        <div class='radio-inline'><%= ff.radio_button :darkness, '5', checked: (@unit.color.darkness == '5') %> 5</div>
+        <div class='radio-inline'><%= ff.radio_button :darkness, '6', checked: (@unit.color.darkness == '6') %> 6</div>
+        <div class='radio-inline'><%= ff.radio_button :darkness, '7', checked: (@unit.color.darkness == '7') %> 7</div>
+        <div class='radio-inline'><%= ff.radio_button :darkness, '8', checked: (@unit.color.darkness == '8') %> 8</div>
+        <div class='radio-inline'><%= ff.radio_button :darkness, '9', checked: (@unit.color.darkness == '9') %> 9</div>
+    </div>
       <% end %>
     <hr>
     </div>

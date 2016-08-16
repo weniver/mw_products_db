@@ -1,4 +1,4 @@
-<h1 class="remission">REMISIÓN <%= @remission.id %>: <%= @remission.store.name.capitalize %></h1>
+<h1 class="remission">REMISIÓN <%= @remission.id %>: <%= link_to "#{@remission.store.name}", @remission.store %></h1>
 <h3 class="remission"><%=@remission.created_at.strftime("%H-%I-%G")%></h3>
 <hr>
 <h2><%= "#{@remission.price_modifier}% de Descuento" %></h2>
@@ -36,8 +36,8 @@ end_remission_path(@remission), method: :post)).html_safe
         <td><%= unit.product_code %></td>
         <td><%= unit.category.product.name %></td>
         <td><%= unit.category.name %></td>
-        <td><%= unit.pattern.name %>: <%= unit.color.real_color %></td>
-        <td><%= unit.fabric.material %> <%= unit.fabric.color.capitalize %></td>
+        <td><%= unit.pattern_color_tables %></td>
+        <td><%= unit.fabric_table%></td>
       </tr>
     <% end %>
     </tbody>

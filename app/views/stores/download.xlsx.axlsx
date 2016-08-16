@@ -13,7 +13,7 @@ wb.add_worksheet(name: "Inventario") do |sheet|
   sheet.add_row ['REMISION','CLAVE', 'DESCRIPCION', 'PRECIO'], style: title
 
   @remissions.each do |remission|
-    remission.units.each do |unit|
+    remission.units.order(:product_code).each do |unit|
       sheet.add_row ['#'+unit.remission.id.to_s, unit.product_code, unit.description, unit.real_price], style: Axlsx::STYLE_THIN_BORDER
     end
   end

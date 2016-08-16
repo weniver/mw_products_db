@@ -21,8 +21,8 @@ download_store_path(@store, format: :xlsx)) %></h3>
         <td><%= unit.product_code %></td>
         <td><%= unit.category.product.name %></td>
         <td><%= unit.category.name %></td>
-        <td><%= unit.pattern.name %>: <%= unit.color.real_color %></td>
-        <td><%= unit.fabric.material %> <%= unit.fabric.color.capitalize %></td>
+        <td><%= unit.pattern_color_tables %></td>
+        <td><%= unit.fabric_table %></td>
       </tr>
     <% end %>
   <% end %>

@@ -24,11 +24,38 @@ class Unit < ActiveRecord::Base
   def description
     pro = self.category.product.name
     cat = self.category.name
-    pat = self.pattern.name
-    hue = self.color.hue_for_description
-    fab = self.fabric.material_and_color
-    desc = "#{pro} #{cat} #{pat} #{hue}/#{fab}."
+    if self.pattern.name == 'Varios'
+      pat = self.pattern.name
+      hue_fab = ''
+    elsif pro == 'Relleno'
+      hue_fab = ''
+      pat = ''
+    else
+      pat = self.pattern.name
+      hue = self.color.hue_for_description
+      fab = self.fabric.material_and_color
+      hue_fab = "#{hue}/#{fab}"
+    end
+    desc = "#{pro} #{cat} #{pat} #{hue_fab}"
     return desc.upcase
+  end
+
+  def pattern_color_tables
+    if self.category.product.name == 'Relleno'
+      pat_col = 'n/a'
+    elsif self.pattern.name == 'Varios'
+      pat_col = 'Varios'
+    else
+      pat_col = self.pattern.name + self.color.real_color
+    end
+  end
+
+  def fabric_table
+    if self.fabric.material == 'n/a'
+      fabric = 'n/a'
+    else
+      fabric = self.fabric.material + self.fabric.color.capitalize
+    end
   end
 
   def where_is_it
@@ -57,7 +84,15 @@ class Unit < ActiveRecord::Base
   end
 
   def create_unit_code
-    code = code_product + code_category + self.pattern.code + self.color.real_color + special_code_fabric
+    #relleno dont have color nor pattern
+    if self.category.product.name == 'Relleno'
+      code = code_product + code_category
+    #in varios the pattern is not importante
+    elsif self.pattern.name == 'Varios'
+      code = code_product + code_category + self.pattern.code + special_code_fabric
+    else
+      code = code_product + code_category + self.pattern.code + self.color.real_color + special_code_fabric
+    end
     self.product_code = code.upcase.delete(' ')
   end
 

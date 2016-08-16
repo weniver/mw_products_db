@@ -7,11 +7,11 @@ class Color < ActiveRecord::Base
   validates :real_color, presence: true,
                          uniqueness: true
   validates :hue,        presence: true,
-                         format: { with: /\A[0-9ns]?\z/ }
+                         format: { with: /\A[0-9nsx]?\z/ }
   validates :tone,       presence: true,
-                         format: { with: /\A[0-9]?\z/ }
+                         format: { with: /\A[0-9x]?\z/ }
   validates :darkness,   presence: true,
-                         format: { with: /\A[0-9]?\z/ }
+                         format: { with: /\A[0-9x]?\z/ }
 
   def form_real_color
     h = self.hue

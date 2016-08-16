@@ -20,8 +20,8 @@
       <td><%= unit.product_code %></td>
       <td><%= unit.category.product.name %></td>
       <td><%= unit.category.name %></td>
-      <td><%= unit.pattern.name %>: <%= unit.color.real_color %></td>
-      <td><%= unit.fabric.material %> <%= unit.fabric.color.capitalize %></td>
+      <td><%= unit.pattern_color_tables %></td>
+      <td><%= unit.fabric_table%></td>
       <td><%= unit.sold_price_or_na %></td>
       <td><%= unit.where_is_it %></td>
       <td><%= link_to edit_unit_path(unit) do%>
