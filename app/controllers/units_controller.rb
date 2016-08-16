@@ -43,7 +43,7 @@ class UnitsController < ApplicationController
     @unit = Unit.find(params[:id])
     @products = current_brand.products
     #if edit is in batch, searchs for all the units in the batch
-    if params[:unit][:edit_all_batch] == true
+    if params[:unit][:edit_all_batch] == 'true'
       @units = @unit.batch.units.all
       if @unit.update_attributes(unit_params)
         @units.each do |unit|

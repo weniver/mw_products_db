@@ -16,7 +16,7 @@ User.create!(name: "Ivonne",
             activated_at: Time.zone.now,
             brands_attributes: [name: 'Mama Wolf'])
 
-productos = {  'Mandil'        => ['Pollos','Peces', 'Lady','Marchante'],
+productos = {  'Mandil'        => ['Estandar', 'Lady','Marchante'],
                'Relleno'        => ['Grande','Chico'],
                'Cojín'         => ['Grande','Chico','Gato','Casita'],
                'Mochila'        => ['Estandar'],
@@ -41,7 +41,7 @@ end
 telas = { 'Algodón' => ['Negro', 'Gris Oxford', 'Gris Perla', 'Rojo', 'Blanco'],
           'Lino'    => ['Verde'],
           'Popelina'=> ['Azul','Negra'],
-          'n/a'=> ['n/a'] }
+          'No'=> ['aplica'] }
 
 telas.each { |tela,colores|
   colores.each {|color|
@@ -68,6 +68,8 @@ estampados = {'Twitcher' => 'TWIT',
               'Manchas' => 'MANC',
               '7 gatos' => '7GAT',
               'Gansos' => 'GANS',
+              'Pollos' => 'POLL',
+              'Peces' => 'PEZ',
               'Varios' => 'VAR',
               'n/a' => 'n/a' }
 

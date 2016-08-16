@@ -46,15 +46,15 @@ class Unit < ActiveRecord::Base
     elsif self.pattern.name == 'Varios'
       pat_col = 'Varios'
     else
-      pat_col = self.pattern.name + self.color.real_color
+      pat_col = self.pattern.name + ': ' + self.color.real_color
     end
   end
 
   def fabric_table
-    if self.fabric.material == 'n/a'
+    if self.fabric.material == 'No'
       fabric = 'n/a'
     else
-      fabric = self.fabric.material + self.fabric.color.capitalize
+      fabric = self.fabric.material + ' ' + self.fabric.color.capitalize
     end
   end
 
