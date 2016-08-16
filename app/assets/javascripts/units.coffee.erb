@@ -15,6 +15,15 @@ $(document).ready ->
 jQuery ->
   $('#unit_category_id').parent().show()
   categories = $('#unit_category_id').html()
+  product = $('#unit_product_id :selected').text()
+  options = $(categories).filter("optgroup[label='#{product}']").html()
+  if options
+    $('#unit_category_id').html(options)
+    $('#unit_category_id').parent().show()
+  else
+    $('#unit_category_id').empty()
+    $('#unit_category_id').parent().hide()
+
   $('#unit_product_id').change ->
     product = $('#unit_product_id :selected').text()
     options = $(categories).filter("optgroup[label='#{product}']").html()
