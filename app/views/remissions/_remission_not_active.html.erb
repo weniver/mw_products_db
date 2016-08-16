@@ -1,0 +1,38 @@
+<h1 class="remission"><%= @remission.store.name.capitalize %>: Remisión <%= @remission.id %> (inactiva)</h1>
+<h3 class="remission">Ganancia: $<%=@remission.profit%> | Fecha: <%=@remission.created_at.strftime("%H-%I-%G")%></h3>
+<hr>
+<h2><%= "#{@remission.price_modifier}% de Descuento" %></h2>
+
+<h3><%= (
+(link_to '<i class="glyphicon glyphicon-download">Descargar</i>'.html_safe,
+download_remission_path(@remission, format: :xlsx)) + ' | ' +
+(link_to '<i class="glyphicon glyphicon-tree-deciduous">Restablecer</i>'.html_safe,
+activate_remission_path(@remission), method: :post)).html_safe
+%></h3>
+  <table id="products" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th>Preció de Venta</th>
+        <th>Codigo</th>
+        <th>Producto</th>
+        <th>Categoria</th>
+        <th>Estampado: color</th>
+        <th>Tela</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @units.each do |unit| %>
+      <tr>
+        <td>$<%= unit.profit %></td>
+        <td><%= unit.product_code %></td>
+        <td><%= unit.category.product.name %></td>
+        <td><%= unit.category.name %></td>
+        <td><%= unit.pattern_color_tables %></td>
+        <td><%= unit.fabric_table%></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <% if @devolutions.any? %>
+    <%= render 'devolutions_table' %>
+  <% end %>

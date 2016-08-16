@@ -10,6 +10,11 @@
         <%= f.label :store_id, "Producto" %> <br/>
         <%= f.collection_select :store_id, @stores.order(:name), :id, :name, prompt: "Selecciona una Tienda" %>
       </div>
+      <div class="field">
+        <%= f.label :price_modifier, "Descuento al Precio Base(%)" %> <br/>
+        <%= f.number_field :price_modifier, class: 'form-control'%>
+      </div>
+
         <table id="remissions" class="table table-striped table-bordered" cellspacing="0" width="100%">
           <thead>
             <tr>
@@ -25,19 +30,21 @@
               <% unless unit.sold %>
                 <tr>
                   <td>
-                    <%= check_box_tag "unit_ids[]", unit.id %>
+                    <%= check_box_tag "unit_ids[]", unit.id,
+                     (@selected_units.nil? ? false : @selected_units.include?(unit)) %>
                   </td>
                   <td><%= unit.category.product.name %></td>
                   <td><%= unit.category.name %></td>
-                  <td><%= unit.pattern.name %>: <%= unit.color.real_color %></td>
-                  <td><%= unit.fabric.material %> <%= unit.fabric.color.capitalize %></td>
+                  <td><%= unit.pattern_color_tables %></td>
+                  <td><%= unit.fabric_table %></td>
                 </tr>
               <% end %>
             <% end %>
           </tbody>
         </table>
         <br>
-        <%= f.submit "Generar Remisión", class: "btn btn-primary" %>
+        <h5>NOTA: Antes de dar click en "Generar Remisión" borrar el campo de busqueda.</h5>
+        <%= f.submit "Generar Remisión", data: { confirm: "Antes de generar la remisión recuerda BORRAR el campo de búsqueda." }, class: "btn btn-primary"  %>
       <% end %>
   </div>
 </div>

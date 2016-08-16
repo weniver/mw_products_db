@@ -11,9 +11,14 @@ Rails.application.routes.draw do
   resources :batches,                only: [:index, :destroy]
   resources :account_activations,    only: [:edit]
   resources :remissions do
-    collection do
+    member do
+      get :download
+      post :end
+      post :activate
       put :sold
     end
+  end
+  resources :stores do
     member do
       get :download
     end

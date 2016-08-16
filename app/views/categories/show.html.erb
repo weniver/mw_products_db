@@ -7,7 +7,7 @@
       <th>Codigo</th>
       <th>Estampado: color</th>
       <th>Tela</th>
-      <th>¿Vendido?</th>
+      <th>Precio de Venta</th>
       <th>Ubicación</th>
       <th><span class="glyphicon glyphicon-pencil"></span>&#160|&#160<span class="glyphicon glyphicon-trash"></span></th>
     </tr>
@@ -16,9 +16,9 @@
   <% @units.each do |unit| %>
     <tr>
       <td><%= unit.product_code %></td>
-      <td><%= unit.pattern.name %>: <%= unit.color.real_color %></td>
-      <td><%= unit.fabric.material %> <%= unit.fabric.color.capitalize %></td>
-      <td><%= unit.sold_yes_or_no %><%= unit.sold_price %></td>
+      <td><%= unit.pattern_color_tables %></td>
+      <td><%= unit.fabric_table%></td>
+      <td><%= unit.sold_price_or_na %></td>
       <td><%= unit.where_is_it %></td>
       <td><%= link_to edit_unit_path(unit) do%>
        <span class="glyphicon glyphicon-pencil"></span>

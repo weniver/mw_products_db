@@ -1,4 +1,17 @@
-ActiveRecord::Schema.define(version: 20160725195326) do
+# encoding: UTF-8
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
+#
+# Note that this schema.rb definition is the authoritative source for your
+# database schema. If you need to create the application database on another
+# system, you should be using db:schema:load, not running all the migrations
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# you'll amass, the slower it'll run and the greater likelihood for issues).
+#
+# It's strongly recommended that you check this file into your version control system.
+
+ActiveRecord::Schema.define(version: 20160812161417) do
 
   create_table "batches", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -39,6 +52,16 @@ ActiveRecord::Schema.define(version: 20160725195326) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "devolutions", force: :cascade do |t|
+    t.text     "description"
+    t.integer  "remission_id"
+    t.string   "product_code"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "devolutions", ["remission_id"], name: "index_devolutions_on_remission_id"
+
   create_table "fabrics", force: :cascade do |t|
     t.string   "material"
     t.string   "color"
@@ -71,9 +94,11 @@ ActiveRecord::Schema.define(version: 20160725195326) do
 
   create_table "remissions", force: :cascade do |t|
     t.integer  "store_id"
-    t.boolean  "active",     default: true
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.boolean  "active",         default: true
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "price_modifier", default: 0
+    t.decimal  "profit"
   end
 
   add_index "remissions", ["store_id"], name: "index_remissions_on_store_id"
@@ -90,17 +115,18 @@ ActiveRecord::Schema.define(version: 20160725195326) do
 
   create_table "units", force: :cascade do |t|
     t.string   "product_code"
-    t.decimal  "price_modifier", default: 1.0
-    t.boolean  "sold",           default: false
+    t.boolean  "sold",         default: false
     t.integer  "category_id"
     t.integer  "store_id"
     t.integer  "remission_id"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "fabric_id"
     t.integer  "color_id"
     t.integer  "pattern_id"
     t.integer  "batch_id"
+    t.decimal  "profit"
+    t.datetime "date_sold"
   end
 
   add_index "units", ["batch_id"], name: "index_units_on_batch_id"

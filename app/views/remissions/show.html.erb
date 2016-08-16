@@ -1,35 +1,6 @@
-<% provide(:title, ("#{@remission.store.name}: Remisión #{@remission.created_at.strftime("%I-%G")}")) %>
-<h1>REMISIÓN: <%= @remission.store.name.capitalize %>.</h1>
-<hr>
-<h2><%=@remission.created_at.strftime("%I-%G")%></h2>
-<h3><%= link_to '<i class="glyphicon glyphicon-download">Descargar</i>'.html_safe, download_remission_path(@remission, format: :xlsx) %></h3>
-
-<%= form_tag sold_remissions_path, method: :put do %>
-  <table id="products" class="table table-striped table-bordered" cellspacing="0" width="100%">
-    <thead>
-      <tr>
-        <th><span class="glyphicon glyphicon-check"></th>
-        <th>¿Vendido?</th>
-        <th>Codigo</th>
-        <th>Producto</th>
-        <th>Categoria</th>
-        <th>Estampado: color</th>
-        <th>Tela</th>
-      </tr>
-    </thead>
-    <tbody>
-    <% @units.each do |unit| %>
-      <tr>
-        <td><%= check_box_tag "unit_ids[]", unit.id, unit.sold %></td>
-        <td><%= unit.sold_yes_or_no %><%= unit.sold_price %></td>
-        <td><%= unit.product_code %></td>
-        <td><%= unit.category.product.name %></td>
-        <td><%= unit.category.name %></td>
-        <td><%= unit.pattern.name %>: <%= unit.color.real_color %></td>
-        <td><%= unit.fabric.material %> <%= unit.fabric.color.capitalize %></td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
-  <%= submit_tag "Actualizar Vendidos", class: 'btn btn-primary' %>
+<% provide(:title, ("#{@remission.store.name}: Remisión #{@remission.id}")) %>
+<% if @remission.active? %>
+  <%= render 'remission_active' %>
+<% else %>
+  <%= render 'remission_not_active' %>
 <% end %>

@@ -1,18 +1,28 @@
 <% provide(:title, @store.name) %>
 <div class='row'>
-  <aside class="col-md-4">
+  <aside class="col-md-3">
     <section class="user_info">
       <h3>
         <%= @store.name %>:
       </h3>
       <hr>
-      <h1>Dirección: <%= @store.address.present? ? @store.address : "Sin dirección."%></h1>
+      <h5>Dirección: <%= @store.address.present? ? @store.address : "Sin dirección."%></h5>
       <hr>
-      <h1>RFC: <%= @store.rfc.present? ? @store.rfc : "Sin RFC."%></h1>
+      <h5>RFC: <%= @store.rfc.present? ? @store.rfc : "Sin RFC."%></h5>
       <hr>
-      <h1>Teléfono: <%= @store.phone.present? ? @store.phone : "Sin teléfono."%></h1>
+      <h5>Teléfono: <%= @store.phone.present? ? @store.phone : "Sin teléfono."%></h5>
       <hr>
-      <h1>email: <%= @store.email.present? ? @store.email : "Sin email."%></h1>
+      <h5>email: <%= @store.email.present? ? @store.email : "Sin email."%></h5>
     </section>
   </aside>
+  <% if @remissions.any? %>
+    <%= render 'remissions' %>
+  <% else %>
+    <div class="col-md-8">
+      <h1 center>Esta Tienda NO Tiene Remisiones.</h1>
+    </div>
+  <% end %>
 </div>
+<% if @active_remissions.any? %>
+  <%= render 'inventory_table' %>
+<% end %>

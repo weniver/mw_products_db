@@ -1,5 +1,5 @@
-<% provide(:title, 'Agregar Productos') %>
-<h1>Nuevos Productos:</h1>
+<% provide(:title, 'Nuevas Piezas') %>
+<h1>Nuevas Piezas:</h1>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
@@ -11,12 +11,12 @@
       <hr>
 
     <div class="field">
-      <%= f.label :product_id, "Producto" %> <br/>
+      <%= f.label :product_id, "Producto:" %> <br/>
       <%= f.collection_select :product_id, @products.order(:name), :id, :name, prompt: "Selecciona un producto" %>
     </div>
 
     <div class="field">
-      <%= f.label :category_id, "Categoria" %> <br/>
+      <%= f.label :category_id, "Categoria:" %> <br/>
       <%= f.grouped_collection_select :category_id, Product.order(:name), :categories, :name, :id, :name, prompt: "Selecciona una categoria" %>
     </div>
     <hr>
@@ -26,12 +26,13 @@
       <%= f.collection_select(:pattern_id, Pattern.order(:name), :id, :name, prompt: "Selecciona un estampado")  %>
     <br>
     <hr>
-    <strong>Color:</strong>
+    <strong>Color:</strong><a id="popover" class="btn" rel="popover" data-content="" title="Tabla de Colores"><span class="glyphicon glyphicon-info-sign"></a>
     <br><br>
     <div class="field">
       <%= f.fields_for :colors do |ff| %>
         <div class="field">
         <%= ff.label :hue, "Matiz", class: 'control-label' %></br>
+        <div class='radio-inline'><%= ff.radio_button :hue, 'x' %> n/a</div>
         <div class='radio-inline'><%= ff.radio_button :hue, '0', checked: true %> 0</div>
         <div class='radio-inline'><%= ff.radio_button :hue, '1' %> 1</div>
         <div class='radio-inline'><%= ff.radio_button :hue, '2' %> 2</div>
@@ -48,6 +49,7 @@
 
         <div class="field">
         <%= ff.label :tone, "Tono", class: 'control-label' %></br>
+        <div class='radio-inline'><%= ff.radio_button :tone, 'x' %> n/a</div>
         <div class='radio-inline'><%= ff.radio_button :tone, '0', checked: true  %> 0</div>
         <div class='radio-inline'><%= ff.radio_button :tone, '1' %> 1</div>
         <div class='radio-inline'><%= ff.radio_button :tone, '2' %> 2</div>
@@ -62,6 +64,7 @@
 
         <div class="field">
         <%= ff.label :darkness, "Saturación" %></br>
+        <div class='radio-inline'><%= ff.radio_button :darkness, 'x' %> n/a</div>
         <div class='radio-inline'><%= ff.radio_button :darkness, '0', checked: true  %> 0</div>
         <div class='radio-inline'><%= ff.radio_button :darkness, '1' %> 1</div>
         <div class='radio-inline'><%= ff.radio_button :darkness, '2' %> 2</div>

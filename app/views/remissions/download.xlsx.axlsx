@@ -6,14 +6,15 @@ top = wb.styles.add_style( sz: 16,
 total = wb.styles.add_style( border: Axlsx::STYLE_THIN_BORDER,
                              b: true,
                              bg_color: '999999')
+
 wb.add_worksheet(name: "Remisión") do |sheet|
   sheet.add_row [@remission.created_at.strftime("%H-%I-%G"),'Remisión: ' + @remission.id.to_s, 'Tienda: '+ @remission.store.name], style: top
   sheet.add_row
-  sheet.add_row ['CLAVE', 'PRODUCTO', 'CATEGORIA', 'ESTAMPADO', 'COLOR', 'PRECIO'], style: title
+  sheet.add_row ['CLAVE', 'DESCRIPCION', 'PRECIO'], style: title
   @units.each do |unit|
-    sheet.add_row [unit.product_code, unit.category.product.name, unit.category.name, unit.pattern.name, unit.color.real_color, unit.real_price], style: Axlsx::STYLE_THIN_BORDER
+    sheet.add_row [unit.product_code, unit.description, unit.real_price], style: Axlsx::STYLE_THIN_BORDER
   end
-  sheet.add_row ['','','','','SUBTOTAL', "=SUM(F4:F#{@units.length+3})"], style: [nil,nil,nil,nil,total,total]
-  sheet.add_row ['','','','','IVA', "=ROUND(SUM(F4:F#{@units.length+3})*0.16,2)"], style: [nil,nil,nil,nil,Axlsx::STYLE_THIN_BORDER,Axlsx::STYLE_THIN_BORDER]
-  sheet.add_row ['','','','','TOTAL', "=ROUND(SUM(F4:F#{@units.length+3})*0.16+(SUM(F4:F#{@units.length+3})),2)"], style: [nil,nil,nil,nil,total,total]
+  sheet.add_row ['','SUBTOTAL', "=SUM(C4:C#{@units.length+3})"], style: [nil,total,total]
+  sheet.add_row ['','IVA', "=ROUND(SUM(C4:C#{@units.length+3})*0.16,2)"], style: [nil,Axlsx::STYLE_THIN_BORDER,Axlsx::STYLE_THIN_BORDER]
+  sheet.add_row ['','TOTAL', "=ROUND(SUM(C4:C#{@units.length+3})*0.16+(SUM(C4:C#{@units.length+3})),2)"], style: [nil,total,total]
 end

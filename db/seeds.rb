@@ -16,18 +16,18 @@ User.create!(name: "Ivonne",
             activated_at: Time.zone.now,
             brands_attributes: [name: 'Mama Wolf'])
 
-productos = {  'Mandiles'        => ['Pollos','Peces', 'Lady','Marchante'],
-               'Rellenos'        => ['Grande','Chico'],
-               'Cojines'         => ['Grande','Chico','Gato','Casita'],
-               'Mochilas'        => ['Estandar'],
-               'Carteras'        => ['Mediana','Mini'],
-               'Fundas'          => ['iPad','Laptop','Kindle'],
-               'Bolsas'          => ['Alta', 'Ancha', 'Tote', 'Weekend Bag',
+productos = {  'Mandil'        => ['Estandar', 'Lady','Marchante'],
+               'Relleno'        => ['Grande','Chico'],
+               'Cojín'         => ['Grande','Chico','Gato','Casita'],
+               'Mochila'        => ['Estandar'],
+               'Cartera'        => ['Mediana','Mini'],
+               'Funda'          => ['iPad','Laptop','Kindle'],
+               'Bolsa'          => ['Alta', 'Ancha', 'Tote', 'Weekend Bag',
                                      'Satchel'],
-               'Cosmetiqueras'   => ['Grande','Chica'],
-               'Estuches'        => ['XL', 'Estandar'],
-               'Lapiceros'       => ['Estandar'],
-               'Monederos'       => ['Mini', 'Largo', 'Estandar'] }
+               'Cosmetiquera'   => ['Grande','Chica'],
+               'Estuche'        => ['XL', 'Estandar'],
+               'Lapicero'       => ['Estandar'],
+               'Monedero'       => ['Mini', 'Largo', 'Estandar'] }
 
 brand = Brand.second
 productos.each do |producto,categorias|
@@ -40,7 +40,8 @@ end
 
 telas = { 'Algodón' => ['Negro', 'Gris Oxford', 'Gris Perla', 'Rojo', 'Blanco'],
           'Lino'    => ['Verde'],
-          'Popelina'=> ['Azul','Negra'] }
+          'Popelina'=> ['Azul','Negra'],
+          'No'=> ['aplica'] }
 
 telas.each { |tela,colores|
   colores.each {|color|
@@ -66,7 +67,11 @@ estampados = {'Twitcher' => 'TWIT',
               'Stars' => 'STAR',
               'Manchas' => 'MANC',
               '7 gatos' => '7GAT',
-              'Gansos' => 'GANS' }
+              'Gansos' => 'GANS',
+              'Pollos' => 'POLL',
+              'Peces' => 'PEZ',
+              'Varios' => 'VAR',
+              'n/a' => 'n/a' }
 
 estampados.each { |estampado, codigo|
   Pattern.create!(name: estampado,
@@ -94,7 +99,6 @@ fabrics = Fabric.ids
   color_id =  colors.sample
   pattern_id = patterns.sample
   product_id = products.sample
-  price_modifier = rand(1.0..2.0)
   sold = Faker::Boolean.boolean
   products.each { |product| product.categories.first.units.create!(quantity: 4,
                                                                    colors: '123',
@@ -102,7 +106,6 @@ fabrics = Fabric.ids
                                                                    fabric_id: fabric_id,
                                                                    color_id: color_id,
                                                                    pattern_id: pattern_id,
-                                                                   price_modifier: price_modifier,
                                                                    sold: sold) }
 
 end

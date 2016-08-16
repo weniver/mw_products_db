@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  description: MyText
+  remission_id: 
+  product_code: MyString
+
+two:
+  description: MyText
+  remission_id: 
+  product_code: MyString
