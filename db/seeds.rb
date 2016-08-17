@@ -81,7 +81,7 @@ estampados.each { |estampado, codigo|
 
 color_sampler = ('0'..'9').to_a
 color_specials = color_sampler + ['n','s']
-20.times do
+5.times do
   hue = color_specials.sample
   tone = color_sampler.sample
   darkness = color_sampler.sample
@@ -94,23 +94,22 @@ products = Product.all
 colors = Color.ids
 patterns = Pattern.ids
 fabrics = Fabric.ids
-20.times do
-  fabric_id = fabrics.sample
-  color_id =  colors.sample
-  pattern_id = patterns.sample
-  product_id = products.sample
-  sold = Faker::Boolean.boolean
-  products.each { |product| product.categories.first.units.create!(quantity: 4,
+
+fabric_id = fabrics.sample
+color_id =  colors.sample
+pattern_id = patterns.sample
+product_id = products.sample
+sold = false
+10.times do products.each { |product| product.categories.first.units.create!(quantity: 10,
                                                                    colors: '123',
                                                                    product_id: product.id,
                                                                    fabric_id: fabric_id,
                                                                    color_id: color_id,
                                                                    pattern_id: pattern_id,
                                                                    sold: sold) }
-
 end
 
-50.times do |n|
+5.times do |n|
   name = Faker::Name.name
   email = "example-#{n+1}@railstutorial.org"
   password = "password"
@@ -123,7 +122,7 @@ end
                activated_at: Time.zone.now,
                brands_attributes: [name: brand])
 end
-10.times do |n|
+3.times do |n|
    name = Faker::Pokemon.name
    address = Faker::Address.city + ', ' + Faker::Address.street_name+ ', ' + Faker::Address.street_address+ ', '
    rfc = 'VECJ880326XXX'

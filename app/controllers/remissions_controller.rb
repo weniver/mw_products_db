@@ -49,21 +49,34 @@ class RemissionsController < ApplicationController
 
   def show
     @remission = Remission.find(params[:id])
-    @units = @remission.units
+    @units = @remission.units.order(:product_code)
     @devolutions = @remission.devolutions
   end
 
   def edit
     @remission = Remission.find(params[:id])
+    @remission_units = @remission.units
+    @remission_units_category_ids = @remission_units.pluck(:category_id).uniq
+    @remission_units_count = @remission.units.group(:product_code).count
+
     @stores = Store.all
-    @units = Unit.order(remission_id: :desc)
+
+    @units = @remission_units.group(:product_code) + Unit.where.not(category_id: @remission_units_category_ids).group(:product_code)
+
   end
 
   def update
     @remission = Remission.find(params[:id])
+    #takes out all products with value 0 in select
+    @selected_quantities = params[:quantities].delete_if {|k,v| v == "0"}
     if @remission.update_attributes(remission_params)
-      @remission.units.where.not(id: params[:unit_ids]).update_all(remission_id: nil)
-      Unit.where(id: params[:unit_ids]).update_all(remission_id: @remission.id)
+      @remission.units.update_all(remission_id: nil)
+      #adds all products to remission being edited
+      @selected_quantities.each do |code,qty|
+        @selected_units = Unit.where(sold: false, product_code: code).limit(qty.to_i)
+        @selected_units.update_all( { store_id: @remission.store.id,
+                                      remission_id: @remission.id } )
+      end
       flash[:success] = 'Remisión Editada'
       redirect_to @remission
     else
