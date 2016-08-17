@@ -18,7 +18,7 @@
         <table id="remissions" class="table table-striped table-bordered" cellspacing="0" width="100%">
           <thead>
             <tr>
-              <th></th>
+              <th>Piezas</th>
               <th>Producto</th>
               <th>Categoria</th>
               <th>Estampado: color</th>
@@ -30,8 +30,11 @@
               <% unless unit.sold %>
                 <tr>
                   <td>
-                    <%= check_box_tag "unit_ids[]", unit.id,
-                     (@selected_units.nil? ? false : @selected_units.include?(unit)) %>
+                    <%= select_tag "quantities[#{unit.product_code}]",
+                                   options_for_select(0..Unit.where(product_code: unit.product_code).count,
+                                   unless @selected_quantities == nil
+                                     @selected_quantities.has_key?(unit.product_code) ? @selected_quantities[unit.product_code].to_i : 0
+                                   end )%>
                   </td>
                   <td><%= unit.category.product.name %></td>
                   <td><%= unit.category.name %></td>
