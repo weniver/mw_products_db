@@ -131,9 +131,9 @@ class RemissionsController < ApplicationController
   def activate
     @remission = Remission.find(params[:id])
     @units = @remission.units
-    @remission.update_attributes(active: true)
     #adds devolutions from storage to remission/store
     @remission.restore_devolutions
+    @remission.update_attributes(active: true)
     redirect_to @remission
   end
 

@@ -25,20 +25,20 @@ class Remission < ActiveRecord::Base
   end
 
   def restore_devolutions
-    devolutions = self.devolutions.all
-    store_id = self.store.id
-    id = self.id
-    devolutions.each do |devolution|
-      code = devolution.product_code
-      unit = Unit.where(product_code: code, sold: false).first
-      #if there are not units like that in storage
-      if unit == 0
-        next
-      else
-        devolution.destroy
-        unit.update_columns( {store_id: store_id,
-                              remission_id: id} )
-      end
+    #gets remission data to update units from devolutions
+    @store_id = self.store.id
+    @remission_id = self.id
+    @to_restore_devs = Devolution.where(remission_id: @remission_id)
+    #gets quantity of devolutions for each unit type(via product_code)
+    @to_restore_devs_count = @to_restore_devs.group(:product_code).count
+
+    @to_restore_devs_count.each do |code,qty|
+      unit = Unit.where(product_code: code, sold: false).limit(qty.to_i)
+      unit.update_all( { store_id: @store_id,
+                         remission_id: @remission_id } )
+
     end
+    #destroys all devoultions of the remission
+    @to_restore_devs.destroy_all
   end
 end
