@@ -36,11 +36,13 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = User.find(params[:id])
   end
 
   def update
+    @user = User.find(params[:id])
     if @user.update_attributes(user_params)
-      flash[:success] = "Tu perfil ha sido actualizado"
+      flash[:success] = "Tu usuario ha sido actualizado"
       redirect_to @user
     else
       render 'edit'

@@ -1,0 +1,29 @@
+<% provide(:title, 'Editar Usuario') %>
+<h1>Editar Usuario:</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@user) do |f| %>
+      <%= render 'shared/error_messages' %>
+
+      <%= f.label :name, "Nombre:" %>
+      <%= f.text_field :name, class: 'form-control' %>
+
+      <%= f.label :email, "Correo Electrónico:" %>
+      <%= f.email_field :email, class: 'form-control' %>
+
+      <%= f.label :password, "Contraseña:" %>
+      <%= f.password_field :password, class: 'form-control' %>
+
+      <%= f.label :password_confirmation, "Confirmación de Contraseña:" %>
+      <%= f.password_field :password_confirmation, class: 'form-control' %>
+
+      <%= f.fields_for :brands do |ff| %>
+        <%= ff.label :name, "Nombre de tu Marca:" %>
+        <%= ff.text_field :name, class: 'form-control' %>
+      <% end %>
+
+      <%= f.submit "Editar", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
