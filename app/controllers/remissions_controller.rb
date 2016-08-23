@@ -4,7 +4,7 @@ class RemissionsController < ApplicationController
   def new
     @remission = Remission.new
     @stores = Store.all
-    @units = Unit.where(sold:false).unscoped.group(:product_code)
+    @units = Unit.where(sold:false).select(:product_code).distinct
   end
 
   def create
