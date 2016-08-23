@@ -4,7 +4,13 @@ class RemissionsController < ApplicationController
   def new
     @remission = Remission.new
     @stores = Store.all
-    @units = Unit.where(sold:false).select(:product_code).distinct
+    @units = []
+    preunits = Unit.where(sold:false).select(:product_code).distinct
+    preunits.each do |preunit|
+      code = preunit.product_code
+      unit = Unit.where(sold: false, product_code: code).first
+      @units << unit
+    end
   end
 
   def create
