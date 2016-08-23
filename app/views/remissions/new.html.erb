@@ -27,7 +27,6 @@
           </thead>
           <tbody>
             <% @units.each do |unit| %>
-              <% unless unit.sold %>
                 <tr>
                   <td>
                     <%= select_tag "quantities[#{unit.product_code}]",
@@ -41,7 +40,6 @@
                   <td><%= unit.pattern_color_tables %></td>
                   <td><%= unit.fabric_table %></td>
                 </tr>
-              <% end %>
             <% end %>
           </tbody>
         </table>
