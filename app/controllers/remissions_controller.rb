@@ -69,7 +69,7 @@ class RemissionsController < ApplicationController
     @remission = Remission.find(params[:id])
     @remission_units = @remission.units
     @remission_units_category_ids = @remission_units.pluck(:category_id).uniq
-    @remission_units_count = @remission.units.group(:product_code).count
+    @remission_units_count = @remission_units.group(:product_code).count
 
     @stores = Store.all
 
