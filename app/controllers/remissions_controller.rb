@@ -73,7 +73,7 @@ class RemissionsController < ApplicationController
 
     @stores = Store.all
 
-    @units = @remission_units.group(:product_code) + Unit.where.not(category_id: @remission_units_category_ids).group(:product_code)
+    @units = @remission_units.group(:product_code)
 
   end
 
