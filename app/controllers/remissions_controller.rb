@@ -30,7 +30,13 @@ class RemissionsController < ApplicationController
       redirect_to remission_url(@remission)
     else
       @stores = Store.all
-      @units =  Unit.where(sold:false).group(:product_code)
+      @units = []
+      preunits = Unit.where(sold:false).select(:product_code).distinct
+      preunits.each do |preunit|
+        code = preunit.product_code
+        unit = Unit.where(sold: false, product_code: code).first
+        @units << unit
+      end
       render 'new'
     end
   end
