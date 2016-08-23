@@ -123,7 +123,7 @@ class Unit < ActiveRecord::Base
       unless self.quantity.to_f % 1 == 0
         self.errors[:base] << "Quanity needs to be an integer"
       end
-      if self.quantity.to_f.negative?
+      if self.quantity.to_f < 0
         self.errors[:base] << "Quanity needs to be positive"
       end
     end
