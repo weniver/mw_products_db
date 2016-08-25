@@ -76,7 +76,7 @@ class RemissionsController < ApplicationController
     @rem_units_qtys = @rem_units_qtys.reduce Hash.new, :merge
     @stores = Store.all
 
-    @units = @remission_units.group(:product_code)
+    @units = Unit.all
 
   end
 
