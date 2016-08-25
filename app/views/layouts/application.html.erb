@@ -10,6 +10,7 @@
     <%= render 'layouts/shim' %>
   </head>
   <body>
+  <div class="page-wrap">
     <%= render 'layouts/header' %>
     <%= debug(params) if Rails.env.development? %>
     <div class="container">
@@ -19,6 +20,7 @@
         </div>
       <% end %>
       <%= yield %>
+    </div>
       <%= render 'layouts/footer' %>
     </div>
   </body>
