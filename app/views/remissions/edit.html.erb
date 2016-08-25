@@ -28,7 +28,10 @@
             <% @units.each do |unit| %>
                 <tr>
                   <td>
-                    
+                    <%= select_tag "quantities[#{unit.product_code}]",
+                                   options_for_select(0..Unit.where(product_code: unit.product_code).count,
+
+                                   @rem_units_qtys.has_key?(unit.product_code) ? @rem_units_qtys[unit.product_code].to_i : 0 ) %>
                   </td>
                   <td><%= unit.category.product.name %></td>
                   <td><%= unit.category.name %></td>
