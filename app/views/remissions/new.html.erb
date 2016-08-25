@@ -30,7 +30,7 @@
                 <tr>
                   <td>
                     <%= select_tag "quantities[#{unit.product_code}]",
-                                   options_for_select(0..Unit.where(product_code: unit.product_code).count,
+                                   options_for_select(0..Unit.where(product_code: unit.product_code, remission_id: nil, sold: false).count,
                                    unless @selected_quantities == nil
                                      @selected_quantities.has_key?(unit.product_code) ? @selected_quantities[unit.product_code].to_i : 0
                                    end )%>

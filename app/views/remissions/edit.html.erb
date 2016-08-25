@@ -28,10 +28,16 @@
             <% @units.each do |unit| %>
                 <tr>
                   <td>
+                    <% qty_fix = @rem_units_qtys.has_key?(unit.product_code) ?
+                    (Unit.where(product_code: unit.product_code,
+                                remission_id: nil, sold: false).count + 
+                    @rem_units_qtys[unit.product_code].to_i) :
+                    (Unit.where(product_code: unit.product_code,
+                                remission_id: nil, sold: false).count) %>
                     <%= select_tag "quantities[#{unit.product_code}]",
-                                   options_for_select(0..Unit.where(product_code: unit.product_code).count,
-
-                                   @rem_units_qtys.has_key?(unit.product_code) ? @rem_units_qtys[unit.product_code].to_i : 0 ) %>
+                                   options_for_select(0..qty_fix,
+                                   @rem_units_qtys.has_key?(unit.product_code) ?
+                                   @rem_units_qtys[unit.product_code].to_i : 0 ) %>
                   </td>
                   <td><%= unit.category.product.name %></td>
                   <td><%= unit.category.name %></td>

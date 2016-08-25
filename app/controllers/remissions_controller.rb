@@ -5,10 +5,10 @@ class RemissionsController < ApplicationController
     @remission = Remission.new
     @stores = Store.all
     @units = []
-    preunits = Unit.where(sold:false).select(:product_code).distinct
+    preunits = Unit.where(sold:false, remission_id: nil).select(:product_code).distinct
     preunits.each do |preunit|
       code = preunit.product_code
-      unit = Unit.where(sold: false, product_code: code).first
+      unit = Unit.where(sold: false, product_code: code, remission_id: nil).first
       @units << unit
     end
   end
@@ -21,7 +21,7 @@ class RemissionsController < ApplicationController
     #saves both the user and the brand name
     if @remission.save
       @selected_quantities.each do |code,qty|
-        @selected_units = Unit.where(sold: false, product_code: code).limit(qty.to_i)
+        @selected_units = Unit.where(sold: false, product_code: code, remission_id: nil).limit(qty.to_i)
         @selected_units.update_all( { store_id: @remission.store.id,
                                       remission_id: @remission.id } )
       end
@@ -31,10 +31,10 @@ class RemissionsController < ApplicationController
     else
       @stores = Store.all
       @units = []
-      preunits = Unit.where(sold:false).select(:product_code).distinct
+      preunits = Unit.where(sold:false, remission_id: nil).select(:product_code).distinct
       preunits.each do |preunit|
         code = preunit.product_code
-        unit = Unit.where(sold: false, product_code: code).first
+        unit = Unit.where(sold: false, product_code: code, remission_id: nil).first
         @units << unit
       end
       render 'new'
@@ -85,11 +85,11 @@ class RemissionsController < ApplicationController
       unit = Unit.where(sold: false, product_code: code).first
       @units << unit
     end
-
-    restunits = Unit.where(sold:false).where.not(product_code: rem_codes).select(:product_code).distinct
+    #TODO: Fix bug where a unit not part of the remission gets in the middle of remission items when there are only 2 kinds of units in the remission
+    restunits = Unit.where(sold:false, remission_id:nil).where.not(product_code: rem_codes).select(:product_code).distinct
     restunits.each do |restunit|
       code = restunit.product_code
-      unit = Unit.where(sold: false, product_code: code).first
+      unit = Unit.where(sold: false, product_code: code, remission_id: nil).first
       @units << unit
     end
   end
@@ -99,10 +99,11 @@ class RemissionsController < ApplicationController
     #takes out all products with value 0 in select
     @selected_quantities = params[:quantities].delete_if {|k,v| v == "0"}
     if @remission.update_attributes(remission_params)
-      @remission.units.update_all(remission_id: nil)
+      @remission.units.update_all( {remission_id: nil,
+                                    store_id: nil} )
       #adds all products to remission being edited
       @selected_quantities.each do |code,qty|
-        @selected_units = Unit.where(sold: false, product_code: code).limit(qty.to_i)
+        @selected_units = Unit.where(sold: false, product_code: code, remission_id: nil).limit(qty.to_i)
         @selected_units.update_all( { store_id: @remission.store.id,
                                       remission_id: @remission.id } )
       end
