@@ -71,7 +71,6 @@ class RemissionsController < ApplicationController
 
     @rem_units_qtys = @remission_units.select("COUNT(product_code) as total, product_code").
                                                                        group(:product_code).
-                                                                       order(:product_code).
                                                                        map{|p| {p.product_code => p.total} }
     #transform [{}] into {}
     @rem_units_qtys = @rem_units_qtys.reduce Hash.new, :merge
