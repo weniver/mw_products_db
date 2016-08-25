@@ -68,9 +68,13 @@ class RemissionsController < ApplicationController
   def edit
     @remission = Remission.find(params[:id])
     @remission_units = @remission.units
-    @remission_units_category_ids = @remission_units.pluck(:category_id).uniq
-    @remission_units_count = @remission_units.group(:product_code).count
 
+    @rem_units_qtys = @remission_units.select("COUNT(product_code) as total, product_code").
+                                                                       group(:product_code).
+                                                                       order(:product_code).
+                                                                       map{|p| {p.product_code => p.total} }
+    #transform [{}] into {}
+    @rem_units_qtys = @rem_units_qtys.reduce Hash.new, :merge
     @stores = Store.all
 
     @units = @remission_units.group(:product_code)

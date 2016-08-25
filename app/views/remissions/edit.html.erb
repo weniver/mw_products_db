@@ -26,20 +26,18 @@
           </thead>
           <tbody>
             <% @units.each do |unit| %>
-              <% unless unit.sold %>
                 <tr>
                   <td>
                     <%= select_tag "quantities[#{unit.product_code}]",
                                    options_for_select(0..Unit.where(product_code: unit.product_code).count,
 
-                                     @remission_units_count.has_key?(unit.product_code) ? @remission_units_count[unit.product_code].to_i : 0 ) %>
+                                   @rem_units_qtys.has_key?(unit.product_code) ? @rem_units_qtys[unit.product_code].to_i : 0 ) %>
                   </td>
                   <td><%= unit.category.product.name %></td>
                   <td><%= unit.category.name %></td>
                   <td><%= unit.pattern_color_tables %></td>
                   <td><%= unit.fabric_table%></td>
                 </tr>
-              <% end %>
             <% end %>
           </tbody>
         </table>
