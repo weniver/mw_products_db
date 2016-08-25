@@ -76,8 +76,22 @@ class RemissionsController < ApplicationController
     @rem_units_qtys = @rem_units_qtys.reduce Hash.new, :merge
     @stores = Store.all
 
-    @units = Unit.all
+    @units = []
+    rem_codes = []
+    preunits = @remission_units.select(:product_code).distinct
+    preunits.each do |preunit|
+      code = preunit.product_code
+      rem_codes << code
+      unit = Unit.where(sold: false, product_code: code).first
+      @units << unit
+    end
 
+    restunits = Unit.where(sold:false).where.not(product_code: rem_codes).select(:product_code).distinct
+    restunits.each do |restunit|
+      code = restunit.product_code
+      unit = Unit.where(sold: false, product_code: code).first
+      @units << unit
+    end
   end
 
   def update
