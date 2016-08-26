@@ -12,6 +12,7 @@ capybara-*.html
 /log
 /tmp
 /db/*.sqlite3
+/db/seeds_alt.rb
 /db/*.sqlite3-journal
 /public/system
 /coverage/
