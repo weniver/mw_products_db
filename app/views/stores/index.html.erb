@@ -18,11 +18,11 @@
   <% @stores.each do |store| %>
     <tr>
       <td><%= link_to store.name, store %></td>
-      <td>100</td>
+      <td><%= store.units_in_existence %></td>
       <td>Perritos Blancos</td>
       <td>Tortas de Tamal</td>
-      <td>$100</td>
-      <td>$12</td>
+      <td>$<%= store.all_time_profit %></td>
+      <td><%= store.last_remission_profit %></td>
       <td>$6/23</td>
       <td><%= link_to edit_store_path(store) do%>
        <span class="glyphicon glyphicon-pencil"></span>

@@ -16,6 +16,29 @@ class Store < ActiveRecord::Base
   validates :rfc,   allow_blank: true,
                     format: { with: VALID_RFC_REGEX }
 
+  def units_in_existence
+    if self.remissions.blank?
+      return profit = 'n/a'
+    else
+      id = self.id
+      return Unit.where(store_id: id,sold: false).count
+    end
+  end
+
+  def all_time_profit
+    id = self.id
+    return Unit.where(store_id: id, sold:true).sum(:profit).to_i
+  end
+
+  def last_remission_profit
+    if self.remissions.blank?
+      return profit = 'n/a'
+    else
+      sold_units = self.remissions.last.units
+      profit = sold_units.nil? ? 0 : sold_units.where(sold: true).sum(:profit).to_i
+      return "$#{profit}"
+    end
+  end
   private
 
     def upcase_rfc
